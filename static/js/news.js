@@ -1,25 +1,36 @@
 document.addEventListener("DOMContentLoaded", () => {
-  fetch('/static/data/news.json')
+  fetch("/api/news")
     .then(res => res.json())
-    .then(news => {
-      const container = document.getElementById("news-container");
-
-      news.forEach(item => {
-        container.innerHTML += `
-          <div class="col-md-6 col-lg-4">
-            <div class="card h-100 shadow-sm">
-              ${item.images[0] ? `<img src="${item.images[0]}" class="card-img-top" alt="...">` : ""}
-              <div class="card-body">
-                <h5 class="card-title">${item.title}</h5>
-                <h6 class="card-subtitle mb-2 text-muted">${item.date}</h6>
-                <p class="card-text">${item.content}</p>
-              </div>
-            </div>
-          </div>
-        `;
-      });
-    })
-    .catch(err => {
-      console.error("Помилка при завантаженні новин:", err);
-    });
+    .then(data => renderNews(data));
 });
+
+function renderNews(news) {
+  const container = document.getElementById("news-container");
+  container.innerHTML = "";
+
+  // Сортуємо за датою або id (якщо нема ISO-дат)
+  const sorted = news.sort((a, b) => b.id - a.id); // або за датою, якщо вона ISO
+
+  // Беремо тільки 3 останніх
+  const latestNews = sorted.slice(0, 3);
+
+  latestNews.forEach(item => {
+    const col = document.createElement("div");
+    col.className = "col-md-6 col-lg-4";
+
+    col.innerHTML = `
+      <div class="card h-100 glass-card" data-aos="fade-up">
+        <img src="${item.images[0] || '/static/images/default.jpg'}" class="card-img-top" alt="${item.title}">
+        <div class="card-body">
+          <h5 class="card-title">${item.title}</h5>
+          <p class="card-text">${item.content}</p>
+        </div>
+        <div class="card-footer text-muted">
+          ${item.date}
+        </div>
+      </div>
+    `;
+
+    container.appendChild(col);
+  });
+}

@@ -23,7 +23,6 @@ def api_news():
     with open('data/news.json', 'r', encoding='utf-8') as f:
         news_data = json.load(f)
     return jsonify(news_data)
-
 def load_news():
     if not os.path.exists(DATA_FILE):
         return []

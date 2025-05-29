@@ -12,7 +12,7 @@ UPLOAD_FOLDER = 'static/uploads'
 DATA_FILE = 'data/news.json'
 USERS_FILE = 'data/users.json'
 
-# Створення папки завантажень, якщо її нема
+# Створення папок при потребі
 os.makedirs(UPLOAD_FOLDER, exist_ok=True)
 os.makedirs('data', exist_ok=True)
 
@@ -47,10 +47,6 @@ def save_news(news):
     with open(DATA_FILE, 'w', encoding='utf-8') as f:
         json.dump(news, f, ensure_ascii=False, indent=2)
 
-@app.route('/api/news')
-def api_news():
-    return jsonify(load_news())
-
 
 # ----------------- МАРШРУТИ -----------------
 
@@ -60,10 +56,7 @@ def index():
 
 @app.route('/team')
 def team():
-    president = {
-        "name": "Хмілярчук Анастасія",
-        "role": "Президентка ліцею"
-    }
+    president = {"name": "Хмілярчук Анастасія", "role": "Президентка ліцею"}
     ministers = [
         {"name": "Гелей Назар", "role": "Міністр спорту"},
         {"name": "Келюх Марія", "role": "Міністр культури"},
@@ -79,19 +72,16 @@ def team():
 
 @app.route('/news')
 def news():
-    return render_template('news.html', news=load_news())
+    return render_template('news.html', news=load_news(), is_admin=is_admin())
 
 @app.route('/profile')
 def profile():
     if 'username' not in session:
         return redirect(url_for('login'))
-
-    all_users = load_users()  # функція, яка зчитує users.json
-    current_user = next((u for u in all_users if u['username'] == session['username']), None)
-
+    users = load_users()
+    current_user = next((u for u in users if u['username'] == session['username']), None)
     if not current_user:
         return redirect(url_for('logout'))
-
     return render_template(
         'profile.html',
         username=current_user['username'],
@@ -100,7 +90,6 @@ def profile():
         email=current_user['email'],
         is_admin=current_user.get('is_admin', False)
     )
-
 
 
 # ----------------- АВТОРИЗАЦІЯ -----------------
@@ -138,16 +127,17 @@ def register():
             users.append({
                 'username': username,
                 'password': password,
+                'name': '',
+                'surname': '',
+                'email': '',
                 'is_admin': False
             })
             save_users(users)
             success = 'Успішна реєстрація. Тепер увійдіть.'
     return render_template('register.html', error=error, success=success)
-@app.route('/profile')
 
 
-
-# ----------------- ДОДАВАННЯ / РЕДАГУВАННЯ НОВИН -----------------
+# ----------------- ДОДАВАННЯ / РЕДАГУВАННЯ -----------------
 
 @app.route('/add-news', methods=['GET', 'POST'])
 def add_news():
@@ -210,8 +200,14 @@ def edit_news(news_id):
     return render_template('edit_news.html', article=article)
 
 
-# ----------------- ЗАПУСК -----------------
+# ----------------- API -----------------
 
+@app.route('/api/news')
+def api_news():
+    return jsonify(load_news())
+
+
+# ----------------- ЗАПУСК -----------------
 
 if __name__ == '__main__':
     app.run(debug=True)

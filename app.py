@@ -10,14 +10,13 @@ app.secret_key = 'секретний_ключ'
 # Словник користувачів
 users = {
     "vovk1011": "wertyalnuu",  # адміністратор
-    "admin": "adminpass"
+    "makar": "pre123"
 }
 
 UPLOAD_FOLDER = 'static/uploads'
 os.makedirs(UPLOAD_FOLDER, exist_ok=True)
 
 DATA_FILE = 'data/news.json'
-
 
 
 def load_news():
@@ -59,6 +58,7 @@ def team():
 @app.route('/news')
 def news():
     return render_template('news.html', news=load_news())
+
 
 @app.route('/profile')
 def profile():

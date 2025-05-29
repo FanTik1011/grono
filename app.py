@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, redirect, url_for, session, flash
+from flask import Flask, render_template, request, redirect, url_for, session, flash, jsonify
 import json
 from datetime import datetime
 from werkzeug.utils import secure_filename
@@ -18,6 +18,11 @@ os.makedirs(UPLOAD_FOLDER, exist_ok=True)
 
 DATA_FILE = 'data/news.json'
 
+@app.route('/api/news')
+def api_news():
+    with open('data/news.json', 'r', encoding='utf-8') as f:
+        news_data = json.load(f)
+    return jsonify(news_data)
 
 def load_news():
     if not os.path.exists(DATA_FILE):

@@ -30,7 +30,7 @@ def save_news(news):
         json.dump(news, f, ensure_ascii=False, indent=2)
 
 def is_admin():
-    return session.get('username') in ['vovk1011', 'admin']
+    return session.get('username') in ['vovk1011', 'makar']
 
 @app.route('/')
 def index():

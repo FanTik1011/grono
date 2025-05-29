@@ -33,6 +33,17 @@
     .btn {
       border-radius: 1rem;
     }
+    .info-label {
+      font-weight: 600;
+      color: #6c757d;
+    }
+    .info-value {
+      font-size: 1.1rem;
+      margin-bottom: 0.5rem;
+    }
+    .badge-admin {
+      background-color: #6f42c1;
+    }
     @keyframes fadeIn {
       from { opacity: 0; transform: translateY(20px); }
       to { opacity: 1; transform: translateY(0); }
@@ -43,20 +54,29 @@
 
   <div class="profile-card">
     <i class="bi bi-person-circle profile-icon"></i>
-    <h2 class="fw-bold">Привіт, {{ username }}!</h2>
-    <p class="text-muted mb-4">Це твій профіль у самоврядуванні Ліцею "Гроно"</p>
+    <h2 class="fw-bold">{{ name }} {{ surname }}</h2>
+    <p class="text-muted">({{ username }})</p>
+    
+    {% if is_admin %}
+      <span class="badge rounded-pill text-bg-light badge-admin mb-3">Адміністратор</span>
+    {% else %}
+      <span class="badge rounded-pill text-bg-secondary mb-3">Користувач</span>
+    {% endif %}
+
+    <div class="text-start mt-3 mb-4">
+      <p><span class="info-label">Email:</span> <span class="info-value">{{ email }}</span></p>
+    </div>
 
     <div class="d-grid gap-2">
       <a href="{{ url_for('index') }}" class="btn btn-outline-primary">
         <i class="bi bi-house-door"></i> На головну
       </a>
 
-     {% if username in ['vovk1011', 'makar'] %}
-  <a href="{{ url_for('add_news') }}" class="btn btn-success">
-    <i class="bi bi-plus-circle"></i> Додати новину
-  </a>
-{% endif %}
-   
+      {% if is_admin %}
+        <a href="{{ url_for('add_news') }}" class="btn btn-success">
+          <i class="bi bi-plus-circle"></i> Додати новину
+        </a>
+      {% endif %}
 
       <a href="{{ url_for('logout') }}" class="btn btn-outline-danger">
         <i class="bi bi-box-arrow-right"></i> Вийти

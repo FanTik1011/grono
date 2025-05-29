@@ -649,7 +649,4 @@ h2.section-title {
 html {
   scroll-behavior: smooth;
 }
-#netlify-identity-modal {
-  z-index: 1050 !important; /* вище за Bootstrap navbar (зазвичай 1030) */
-  position: fixed !important;
-}
+

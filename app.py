@@ -18,6 +18,8 @@ os.makedirs(UPLOAD_FOLDER, exist_ok=True)
 
 DATA_FILE = 'data/news.json'
 
+
+
 def load_news():
     if not os.path.exists(DATA_FILE):
         return []

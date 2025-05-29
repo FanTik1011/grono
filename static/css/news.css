@@ -1,0 +1,161 @@
+body {
+    background: #f9f9f9;
+    font-family: "Segoe UI", sans-serif;
+    margin: 0;
+    padding: 0;
+  }
+
+  .glass-navbar {
+    position: sticky;
+    top: 0;
+    z-index: 1030;
+    background: rgba(255, 255, 255, 0.8);
+    backdrop-filter: blur(10px);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+  }
+
+  .navbar-brand {
+    color: #212121 !important;
+    font-weight: 600;
+    font-size: 1.1rem;
+  }
+
+  .nav-link {
+    color: #212121 !important;
+    font-weight: 500;
+    transition: color 0.3s ease;
+  }
+
+  .nav-link:hover {
+    color: #007bff !important;
+    text-shadow: 0 0 2px rgba(0, 123, 255, 0.3);
+  }
+
+  .navbar-toggler {
+    border: none;
+    padding: 10px;
+    font-size: 1.5rem;
+  }
+
+  h1.page-title {
+    text-align: center;
+    margin: 40px 0 20px;
+    font-weight: 600;
+    color: #343a40;
+  }
+
+  .news-item {
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    border-radius: 16px;
+    overflow: hidden;
+    background: white;
+    transition: transform 0.2s;
+  }
+
+  .news-item:hover {
+    transform: scale(1.02);
+  }
+
+  .card-img-top,
+  .carousel-item img {
+    object-fit: cover;
+    height: 200px;
+    width: 100%;
+  }
+
+  .card-body {
+    padding: 20px;
+  }
+
+  .card-title {
+    font-size: 1.25rem;
+    font-weight: 600;
+  }
+
+  .card-text {
+    font-size: 1rem;
+    color: #555;
+  }
+
+  .qr-link {
+    margin-top: 15px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 0.95rem;
+  }
+
+  @media (max-width: 768px) {
+    .navbar-brand {
+      font-size: 1rem;
+    }
+
+    .card-img-top,
+    .carousel-item img {
+      height: 150px;
+    }
+
+    .col-md-6 {
+      width: 100%;
+    }
+
+    .navbar-nav {
+      text-align: center;
+      background: rgba(255,255,255,0.95);
+      padding: 10px;
+      border-radius: 10px;
+      margin-top: 10px;
+    }
+  }
+
+  @media (min-width: 768px) and (max-width: 992px) {
+    .col-md-6 {
+      width: 50%;
+    }
+  }
+
+  @media (min-width: 992px) {
+    .col-lg-4 {
+      width: 33.33%;
+    }
+  }
+  footer {
+background-color: rgba(0, 0, 0, 0.5); /* Напівпрозорий чорний фон, щоб текст був видимий */
+backdrop-filter: blur(10px); /* М'яка розмитість фону */
+color: white; /* Білий текст */
+padding-top: 1rem;
+padding-bottom: 1rem;
+border-top: 1px solid rgba(255, 255, 255, 0.3); /* Легкий білий контур */
+}
+
+footer p {
+font-size: 0.9rem;
+margin-bottom: 0;
+transition: color 0.3s ease;
+}
+
+footer a {
+text-decoration: none;
+color: #fff;
+transition: color 0.3s ease;
+}
+
+footer a:hover {
+color: #007bff; /* Кольорова зміна при наведенні на емейл */
+}
+
+footer .container {
+padding: 0;
+}
+
+footer .mb-1 {
+font-weight: 500;
+}
+
+footer .mb-0 {
+font-weight: 400;
+}
+
+footer .container p {
+font-size: 1rem;
+}

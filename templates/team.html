@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Наша команда | Ліцей "Гроно"</title>
+  <link rel="icon" href="{{ url_for('static', filename='favicon.ico') }}" type="image/x-icon">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"/>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css"/>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/team.css') }}">
+</head>
+<body>
+
+<!-- Navbar -->
+<nav class="navbar navbar-expand-lg glass-navbar fixed-top">
+  <div class="container">
+    <a class="navbar-brand fw-bold" href="{{ url_for('index') }}">Самоврядування<br>Ліцею "Гроно"</a>
+    <button class="navbar-toggler custom-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+      aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav ms-auto">
+        <li class="nav-item"><a class="nav-link" href="{{ url_for('news') }}">Новини</a></li>
+        <li class="nav-item"><a class="nav-link" href="{{ url_for('index') }}">Головна</a></li>
+        <li class="nav-item"><a class="nav-link active" href="{{ url_for('team') }}">Наша команда</a></li>
+        <li class="nav-item d-none" id="profile-tab"><a class="nav-link" href="{{ url_for('profile') }}">Мій профіль</a></li>
+        <li class="nav-item"><a id="login-button" class="nav-link" href="#">Увійти</a></li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<!-- Hero section -->
+<header class="hero-team" data-aos="fade-up" data-aos-duration="1000">
+  <div class="container">
+    <h1 class="display-5 fw-bold">Наша команда</h1>
+    <p class="lead">Ми – серце самоврядування Ліцею "Гроно"</p>
+  </div>
+</header>
+
+<!-- Президентка -->
+<section class="py-5 bg-light">
+  <div class="container text-center" data-aos="zoom-in">
+    <div class="team-card mx-auto" style="max-width: 400px;">
+      <div class="team-title">{{ president.name }}</div>
+      <div class="team-role fw-bold text-primary">{{ president.role }}</div>
+    </div>
+  </div>
+</section>
+
+<!-- Міністри -->
+<section class="py-5">
+  <div class="container">
+    <div class="row g-4 justify-content-center">
+      {% for member in ministers %}
+      <div class="col-md-4 col-lg-3" data-aos="fade-up" data-aos-delay="{{ loop.index0 * 50 }}">
+        <div class="team-card">
+          <div class="team-title">{{ member.name }}</div>
+          <div class="team-role">{{ member.role }}</div>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer class="footer py-4">
+  <div class="container text-center">
+    <p class="mb-1">&copy; 2025 Ліцей "Гроно". Всі права захищені.</p>
+    <p class="mb-0">Зараз: <span id="live-time"></span></p>
+  </div>
+</footer>
+
+<!-- Scripts -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
+<script>
+  AOS.init();
+
+  setInterval(() => {
+    const now = new Date();
+    document.getElementById('live-time').textContent = now.toLocaleTimeString('uk-UA');
+  }, 1000);
+
+  window.addEventListener('scroll', () => {
+    const nav = document.querySelector('.glass-navbar');
+    nav.classList.toggle('scrolled', window.scrollY > 50);
+  });
+</script>
+</body>
+</html>

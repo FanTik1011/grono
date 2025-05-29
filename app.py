@@ -7,9 +7,9 @@ import os
 app = Flask(__name__)
 app.secret_key = 'секретний_ключ'
 
-# Словник користувачів
+# Користувачі (адміни)
 users = {
-    "vovk1011": "wertyalnuu",  # адміністратор
+    "vovk1011": "wertyalnuu",
     "makar": "pre123"
 }
 
@@ -20,9 +20,9 @@ DATA_FILE = 'data/news.json'
 
 @app.route('/api/news')
 def api_news():
-    with open('data/news.json', 'r', encoding='utf-8') as f:
-        news_data = json.load(f)
-    return jsonify(news_data)
+    with open(DATA_FILE, 'r', encoding='utf-8') as f:
+        return jsonify(json.load(f))
+
 def load_news():
     if not os.path.exists(DATA_FILE):
         return []
@@ -34,7 +34,7 @@ def save_news(news):
         json.dump(news, f, ensure_ascii=False, indent=2)
 
 def is_admin():
-    return session.get('username') in ['vovk1011', 'makar']
+    return session.get('username') in users
 
 @app.route('/')
 def index():
@@ -62,7 +62,6 @@ def team():
 @app.route('/news')
 def news():
     return render_template('news.html', news=load_news())
-
 
 @app.route('/profile')
 def profile():
@@ -109,7 +108,7 @@ def add_news():
 
         news = load_news()
         news.insert(0, {
-            'id': datetime.now().timestamp(),  # унікальний ідентифікатор
+            'id': str(datetime.now().timestamp()),  # ← ID тепер як рядок
             'title': title,
             'content': content,
             'date': date,
@@ -120,23 +119,23 @@ def add_news():
 
     return render_template('add_news.html')
 
-@app.route('/delete-news/<float:news_id>')
+@app.route('/delete-news/<news_id>')
 def delete_news(news_id):
     if not is_admin():
         return redirect(url_for('login'))
 
     news = load_news()
-    news = [n for n in news if n.get('id') != news_id]
+    news = [n for n in news if str(n.get('id')) != news_id]
     save_news(news)
     return redirect(url_for('profile'))
 
-@app.route('/edit-news/<float:news_id>', methods=['GET', 'POST'])
+@app.route('/edit-news/<news_id>', methods=['GET', 'POST'])
 def edit_news(news_id):
     if not is_admin():
         return redirect(url_for('login'))
 
     news = load_news()
-    article = next((n for n in news if n.get('id') == news_id), None)
+    article = next((n for n in news if str(n.get('id')) == news_id), None)
     if not article:
         return 'Новину не знайдено', 404
 
@@ -147,7 +146,6 @@ def edit_news(news_id):
         return redirect(url_for('profile'))
 
     return render_template('edit_news.html', article=article)
-    
 
 if __name__ == '__main__':
     app.run(debug=True)

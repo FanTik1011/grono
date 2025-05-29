@@ -87,18 +87,18 @@
       }
     }
   </style>
-</head>
+<!-- ... той самий <head> ... -->
 <body>
   <div class="edit-news-card">
     <h1>Редагування новини</h1>
     <form method="POST">
       <div class="mb-3">
         <label for="title" class="form-label">Заголовок</label>
-        <input type="text" name="title" id="title" class="form-control" value="{{ news_item.title }}" required>
+        <input type="text" name="title" id="title" class="form-control" value="{{ article.title }}" required>
       </div>
       <div class="mb-3">
         <label for="content" class="form-label">Зміст</label>
-        <textarea name="content" id="content" class="form-control" rows="6" required>{{ news_item.content }}</textarea>
+        <textarea name="content" id="content" class="form-control" rows="6" required>{{ article.content }}</textarea>
       </div>
       <div class="d-flex flex-column flex-sm-row gap-2">
         <button type="submit" class="btn btn-primary w-100">💾 Зберегти</button>

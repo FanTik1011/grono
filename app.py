@@ -3,6 +3,7 @@ import json
 from datetime import datetime
 from werkzeug.utils import secure_filename
 import os
+from flask import send_file
 
 app = Flask(__name__)
 app.secret_key = 'секретний_ключ'
@@ -78,18 +79,58 @@ def news():
 def profile():
     if 'username' not in session:
         return redirect(url_for('login'))
+
     users = load_users()
     current_user = next((u for u in users if u['username'] == session['username']), None)
+
     if not current_user:
         return redirect(url_for('logout'))
+
+    # Якщо адмін — передаємо всіх користувачів
+    users_data = users if current_user.get('is_admin', False) else []
+
     return render_template(
         'profile.html',
         username=current_user['username'],
         name=current_user['name'],
         surname=current_user['surname'],
         email=current_user['email'],
-        is_admin=current_user.get('is_admin', False)
+        is_admin=current_user.get('is_admin', False),
+        users_data=users_data
     )
+@app.route('/users-database')
+def users_database():
+    if 'username' not in session:
+        return redirect(url_for('login'))
+
+    users = load_users()
+    current_user = next((u for u in users if u['username'] == session['username']), None)
+
+    if not current_user or not current_user.get('is_admin', False):
+        return redirect(url_for('profile'))
+
+    return render_template('users_database.html', users=users)
+from flask import send_file
+
+@app.route('/download_users')
+def download_users():
+    if 'username' not in session:
+        return redirect(url_for('login'))
+
+    users = load_users()
+    current_user = next((u for u in users if u['username'] == session['username']), None)
+    if not current_user or not current_user.get('is_admin'):
+        return redirect(url_for('profile'))
+
+    # Шлях до файлу users.json у папці data
+    json_path = os.path.join(os.path.dirname(__file__), 'data', 'users.json')
+
+    if not os.path.exists(json_path):
+        return "Файл users.json не знайдено", 404
+
+    return send_file(json_path, as_attachment=True)
+
+
 
 
 # ----------------- АВТОРИЗАЦІЯ -----------------

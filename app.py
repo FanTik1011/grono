@@ -161,16 +161,21 @@ def register():
     if request.method == 'POST':
         username = request.form['username']
         password = request.form['password']
+        name = request.form['name']
+        surname = request.form['surname']
+        email = request.form['email']
+
         users = load_users()
+
         if any(u['username'] == username for u in users):
             error = 'Такий користувач вже існує.'
         else:
             users.append({
                 'username': username,
                 'password': password,
-                'name': '',
-                'surname': '',
-                'email': '',
+                'name': name,
+                'surname': surname,
+                'email': email,
                 'is_admin': False
             })
             save_users(users)

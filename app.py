@@ -1,6 +1,6 @@
 from flask import Flask, render_template, request, redirect, url_for, session, jsonify
 import json
-from datetime import datetime
+from datetime import datetime, timedelta
 from werkzeug.utils import secure_filename
 import os
 from flask import send_file
@@ -130,7 +130,25 @@ def download_users():
 
     return send_file(json_path, as_attachment=True)
 
+# Зберігати онлайн користувачів у пам'яті (для простоти)
+online_users = {}
 
+@app.before_request
+def track_user():
+    # Відмічаємо час останньої активності користувача в сесії
+    user = session.get('username')
+    if user:
+        online_users[user] = datetime.utcnow()
+
+    # Видаляємо користувачів, які були неактивні більше 5 хвилин
+    timeout = datetime.utcnow() - timedelta(minutes=5)
+    for u in list(online_users):
+        if online_users[u] < timeout:
+            online_users.pop(u)
+
+@app.route('/online_count')
+def online_count():
+    return jsonify({'count': len(online_users)})
 
 
 # ----------------- АВТОРИЗАЦІЯ -----------------

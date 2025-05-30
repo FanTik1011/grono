@@ -33,18 +33,26 @@
 
     <!-- Меню -->
     <div class="collapse navbar-collapse" id="navbarNav">
-      <ul class="navbar-nav ms-auto">
-        <li class="nav-item"><a class="nav-link" href="{{ url_for('news') }}">Новини</a></li>
-        <li class="nav-item"><a class="nav-link" href="#about-card">Про нас</a></li>
-        <li class="nav-item"><a class="nav-link" href="{{ url_for('team') }}">Наша команда</a></li>
-        {% if session.username %}
-          <li class="nav-item"><a class="nav-link" href="{{ url_for('profile') }}">Мій профіль</a></li>
-          <li class="nav-item"><a class="nav-link" href="{{ url_for('logout') }}">Вийти</a></li>
-        {% else %}
-          <li class="nav-item"><a class="nav-link" href="{{ url_for('login') }}">Увійти</a></li>
-          <li class="nav-item"><a class="nav-link" href="{{ url_for('register') }}">Реєстрація</a></li>
-        {% endif %}
-      </ul>
+    <ul class="navbar-nav ms-auto align-items-center">
+  <li class="nav-item"><a class="nav-link" href="{{ url_for('news') }}">Новини</a></li>
+  <li class="nav-item"><a class="nav-link" href="#about-card">Про нас</a></li>
+  <li class="nav-item"><a class="nav-link" href="{{ url_for('team') }}">Наша команда</a></li>
+
+  {% if session.username %}
+    <li class="nav-item"><a class="nav-link" href="{{ url_for('profile') }}">Мій профіль</a></li>
+    <li class="nav-item"><a class="nav-link" href="{{ url_for('logout') }}">Вийти</a></li>
+  {% else %}
+    <li class="nav-item"><a class="nav-link" href="{{ url_for('login') }}">Увійти</a></li>
+    <li class="nav-item"><a class="nav-link" href="{{ url_for('register') }}">Реєстрація</a></li>
+  {% endif %}
+
+  <!-- Онлайн користувачі з іконкою і бейджем -->
+  <li class="nav-item d-flex align-items-center ms-3">
+    <i class="bi bi-people-fill me-1 text-primary" style="font-size: 1.2rem;"></i>
+    <span class="badge bg-success" id="online-count" style="font-size: 0.9rem;">0</span>
+  </li>
+</ul>
+
     </div>
   </div>
 </nav>
@@ -106,6 +114,22 @@
   <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
   <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
   <script src="{{ url_for('static', filename='js/news.js') }}"></script>
+  <script>
+  async function updateOnlineCount() {
+    try {
+      const response = await fetch('/online_count');
+      const data = await response.json();
+      document.getElementById('online-count').textContent = data.count;
+    } catch (error) {
+      console.error('Не вдалося отримати кількість онлайн користувачів', error);
+    }
+  }
+
+  updateOnlineCount(); // одразу при завантаженні сторінки
+  setInterval(updateOnlineCount, 10000); // оновлюємо кожні 10 секунд
+</script>
+
+
 
   <script>
     AOS.init();

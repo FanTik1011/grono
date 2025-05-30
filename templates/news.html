@@ -24,11 +24,12 @@
         <li class="nav-item"><a class="nav-link" href="{{ url_for('news') }}">Новини</a></li>
         <li class="nav-item"><a class="nav-link" href="{{ url_for('index') }}">Головна</a></li>
         <li class="nav-item"><a class="nav-link" href="{{ url_for('team') }}">Наша Команда</a></li>
-        {% if session.username %}
+       {% if session.username %}
           <li class="nav-item"><a class="nav-link" href="{{ url_for('profile') }}">Мій профіль</a></li>
           <li class="nav-item"><a class="nav-link" href="{{ url_for('logout') }}">Вийти</a></li>
         {% else %}
           <li class="nav-item"><a class="nav-link" href="{{ url_for('login') }}">Увійти</a></li>
+          <li class="nav-item"><a class="nav-link" href="{{ url_for('register') }}">Реєстрація</a></li>
         {% endif %}
       </ul>
     </div>

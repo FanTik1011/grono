@@ -22,5 +22,61 @@
     "surname": "Горошко",
     "email": "goroskodarina13@gmail.com",
     "is_admin": true
+  },
+  {
+    "username": "julichka.ryb",
+    "password": "pitxab-muzfoC-kehze0",
+    "name": "Юлія ",
+    "surname": "Рибак ",
+    "email": "rjulia0710@gmail.com",
+    "is_admin": false
+  },
+  {
+    "username": "macwus.q",
+    "password": "tosnog-9suvjA-sohkip",
+    "name": "Святослав",
+    "surname": "Бакай",
+    "email": "s.bakaj@icloud.com",
+    "is_admin": true
+  },
+  {
+    "username": "stasik",
+    "password": "qwerty1234",
+    "name": "Станіслав",
+    "surname": "Кітраль",
+    "email": "xnxmdmdkashshsjhsn@gmail.com",
+    "is_admin": false
+  },
+  {
+    "username": "yurxxw",
+    "password": "LighMaster",
+    "name": "Юрій",
+    "surname": "Кметь",
+    "email": "yurxxw@gmail.com",
+    "is_admin": false
+  },
+  {
+    "username": "vikiii.vx",
+    "password": "Luchkivv1$",
+    "name": "вікторія ",
+    "surname": "лучків",
+    "email": "luchkiviktoriia@ukr.net",
+    "is_admin": false
+  },
+  {
+    "username": "vikii.vx",
+    "password": "Luchkivv1$",
+    "name": "лучків",
+    "surname": "вікторія ",
+    "email": "luchkiviktoriia@ukr.net",
+    "is_admin": false
+  },
+  {
+    "username": "ViktoriaLuchkiv",
+    "password": "Luchkiv1$",
+    "name": "Лучків",
+    "surname": "Вікторія",
+    "email": "luchkiviktoriia@ukr.net",
+    "is_admin": false
   }
 ]

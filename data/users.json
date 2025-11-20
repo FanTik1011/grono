@@ -6,5 +6,13 @@
     "surname": "Котляров",
     "email": "vovkot39@gmail.com",
     "is_admin": true
+  },
+  {
+    "username": "Lemoni_x",
+    "password": "20100203",
+    "name": "Владислав",
+    "surname": "Рибак",
+    "email": "1two3four45@gmail.com",
+    "is_admin": true
   }
 ]

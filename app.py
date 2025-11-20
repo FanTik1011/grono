@@ -9,7 +9,7 @@ app = Flask(__name__)
 app.secret_key = 'секретний_ключ'
 
 # Шляхи до файлів
-UPLOAD_FOLDER = 'static/uploads'
+UPLOAD_FOLDER = os.path.join(app.root_path, 'static', 'uploads')
 DATA_FILE = 'data/news.json'
 USERS_FILE = 'data/users.json'
 

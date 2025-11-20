@@ -6,22 +6,5 @@
     "surname": "Котляров",
     "email": "vovkot39@gmail.com",
     "is_admin": true
-  },
-  {
-    "username": "makar",
-    "password": "pre123",
-    "name": "Макар",
-    "surname": "Янушкевич",
-    "email": "m43900395@gmail.com",
-    "is_admin": true
-  },
-  {
-    "username": "nastya",
-    "password": "Kls16",
-    "name": "Анастасія",
-    "surname": "Хмілярчук",
-    "email": "m43900395@gmail.com",
-    "is_admin": true
   }
-
 ]

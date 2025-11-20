@@ -4,6 +4,7 @@ from datetime import datetime
 from werkzeug.utils import secure_filename
 import os
 from flask import send_file
+import zipfile
 
 app = Flask(__name__)
 app.secret_key = 'секретний_ключ'
@@ -146,8 +147,10 @@ def download_news():
         return "Файл news.json не знайдено", 404
 
     return send_file(json_path, as_attachment=True)
-@app.route('/download_uploads/<filename>')
-def download_uploads(filename):
+import zipfile
+
+@app.route('/download_uploads')
+def download_uploads():
     if 'username' not in session:
         return redirect(url_for('login'))
 
@@ -156,12 +159,16 @@ def download_uploads(filename):
     if not current_user or not current_user.get('is_admin'):
         return redirect(url_for('profile'))
 
-    filepath = os.path.join(UPLOAD_FOLDER, filename)
+    zip_path = os.path.join(app.root_path, 'static', 'uploads.zip')
+    uploads_folder = os.path.join(app.root_path, 'static', 'uploads')
 
-    if not os.path.exists(filepath):
-        return "Файл не знайдено", 404
+    # Створюємо ZIP
+    with zipfile.ZipFile(zip_path, 'w') as zipf:
+        for filename in os.listdir(uploads_folder):
+            file_path = os.path.join(uploads_folder, filename)
+            zipf.write(file_path, filename)
 
-    return send_file(filepath, as_attachment=True)
+    return send_file(zip_path, as_attachment=True)
 
 
 

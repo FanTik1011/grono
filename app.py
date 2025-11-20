@@ -57,17 +57,17 @@ def index():
 
 @app.route('/team')
 def team():
-    president = {"name": "Хмілярчук Анастасія", "role": "Президентка ліцею"}
+    president = {"name": "Вікторія Щука", "role": "Президентка ліцею"}
     ministers = [
-        {"name": "Гелей Назар", "role": "Міністр спорту"},
-        {"name": "Келюх Марія", "role": "Міністр культури"},
-        {"name": "Рибак Владислав", "role": "Міністр інформації"},
-        {"name": "Клічук Нестор", "role": "Міністр режисерства"},
-        {"name": "Куса Марта", "role": "Міністр дисципліни"},
+        {"name": "Кітраль Стас", "role": "Міністр спорту"},
+        {"name": "Царук Ніна", "role": "Міністр культури"},
+        {"name": "Рибак Владислав", "role": "Верховний староста"},
+        {"name": "Лучків Вікторія", "role": "Міністр режисерства"},
+        {"name": "Кметь Юрій", "role": "Міністр дисципліни"},
         {"name": "Кіт Ірина", "role": "Міністр милосердя"},
-        {"name": "Сигляк Аліна", "role": "Міністр оформлення"},
-        {"name": "Коровник Максим", "role": "Міністр новин"},
-        {"name": "Паламарчук Олег", "role": "Міністр економіки"}
+        {"name": "Канцір Марта", "role": "Міністр оформлення"},
+        {"name": "Горошко Дарина", "role": "Міністерство інфо та новин"},
+        {"name": "Рибак Юлія", "role": "Міністерство фінансів"}
     ]
     return render_template('team.html', president=president, ministers=ministers)
 
@@ -127,6 +127,23 @@ def download_users():
 
     if not os.path.exists(json_path):
         return "Файл users.json не знайдено", 404
+
+    return send_file(json_path, as_attachment=True)
+@app.route('/download_news')
+def download_news():
+    if 'username' not in session:
+        return redirect(url_for('login'))
+
+    users = load_users()
+    current_user = next((u for u in users if u['username'] == session['username']), None)
+    if not current_user or not current_user.get('is_admin'):
+        return redirect(url_for('profile'))
+
+    # Шлях до файлу news.json у папці data
+    json_path = os.path.join(os.path.dirname(__file__), 'data', 'news.json')
+
+    if not os.path.exists(json_path):
+        return "Файл news.json не знайдено", 404
 
     return send_file(json_path, as_attachment=True)
 

@@ -146,6 +146,22 @@ def download_news():
         return "Файл news.json не знайдено", 404
 
     return send_file(json_path, as_attachment=True)
+@app.route('/download_uploads/<filename>')
+def download_uploads(filename):
+    if 'username' not in session:
+        return redirect(url_for('login'))
+
+    users = load_users()
+    current_user = next((u for u in users if u['username'] == session['username']), None)
+    if not current_user or not current_user.get('is_admin'):
+        return redirect(url_for('profile'))
+
+    filepath = os.path.join(UPLOAD_FOLDER, filename)
+
+    if not os.path.exists(filepath):
+        return "Файл не знайдено", 404
+
+    return send_file(filepath, as_attachment=True)
 
 
 

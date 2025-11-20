@@ -14,5 +14,13 @@
     "surname": "Рибак",
     "email": "1two3four45@gmail.com",
     "is_admin": true
+  },
+  {
+    "username": "goroskodarina3@gmail.com",
+    "password": "57193663",
+    "name": "Дарина ",
+    "surname": "Горошко",
+    "email": "goroskodarina13@gmail.com",
+    "is_admin": true
   }
 ]

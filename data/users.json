@@ -29,7 +29,7 @@
     "name": "Юлія ",
     "surname": "Рибак ",
     "email": "rjulia0710@gmail.com",
-    "is_admin": false
+    "is_admin": true
   },
   {
     "username": "macwus.q",
@@ -78,5 +78,13 @@
     "surname": "Вікторія",
     "email": "luchkiviktoriia@ukr.net",
     "is_admin": false
+  },
+  {
+    "username": "viikaa.wx",
+    "password": "vipkuc-9kyqjy-jahneF",
+    "name": "Вікторія",
+    "surname": "Щука",
+    "email": "viktoriia.shchuka@gmail.com",
+    "is_admin": true
   }
 ]

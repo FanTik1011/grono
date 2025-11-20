@@ -70,6 +70,13 @@
   </section>
   <script src="{{ url_for('static', filename='js/news.js') }}"></script>
 
+    <!-- 📊 ДОДАНО: Блок з графіком Міністерства -->
+    <div class="container my-5" data-aos="fade-up">
+      <h2 class="section-title mb-4">Статистика Міністерства</h2>
+      <div id="myChart" style="width:100%; max-width:600px; height:500px;"></div>
+    </div>
+
+
   <!-- Про нас -->
   <section class="py-5">
     <div class="container">
@@ -87,6 +94,14 @@
       </div>
     </div>
   </section>
+    <!-- Про нас -->
+  
+    </section>
+
+  
+    <!-- Footer -->
+    <footer class="footer py-4">
+
 
   <!-- Footer -->
   <footer class="footer py-4">
@@ -130,5 +145,31 @@
       setTimeout(() => preloader.style.display = "none", 1400);
     });
   </script>
+  <script src="https://www.gstatic.com/charts/loader.js"></script>
+    <script>
+    google.charts.load('current', {'packages':['corechart']});
+    google.charts.setOnLoadCallback(drawChart);
+
+    function drawChart() {
+      const data = google.visualization.arrayToDataTable([
+        ['Міністерство', 'Кількість'],
+        ['Оформлення', 10],
+        ['Дисципліна', 9],
+        ['Інфо та Новини', 7],
+        ['Спорт', 6],
+        ['Культура', 14],
+        ['Милосердя', 10]
+      ]);
+
+      const options = {
+        title: 'Статистика Міністерств',
+        is3D: true
+      };
+
+      const chart = new google.visualization.PieChart(document.getElementById('myChart'));
+      chart.draw(data, options);
+    }
+    </script>
+
 </body>
 </html>

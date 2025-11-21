@@ -351,65 +351,102 @@ def photo_contest():
 
 
 # -------------------- ЗАВАНТАЖЕННЯ ФОТО --------------------
+# -------------------- ЗАВАНТАЖЕННЯ / ЗБЕРЕЖЕННЯ ФОТО --------------------
+
+def load_photos():
+    if not os.path.exists(PHOTOS_FILE):
+        with open(PHOTOS_FILE, "w", encoding="utf-8") as f:
+            json.dump([], f, ensure_ascii=False, indent=4)
+
+    with open(PHOTOS_FILE, "r", encoding="utf-8") as f:
+        return json.load(f)
+
+
+def save_photos(data):
+    with open(PHOTOS_FILE, "w", encoding="utf-8") as f:
+        json.dump(data, f, ensure_ascii=False, indent=4)
+
+
+# -------------------- СТОРІНКА КОНКУРСУ --------------------
+
+@app.route("/photo_contest")
+def photo_contest():
+    if "username" not in session:
+        return redirect(url_for("login"))
+
+    users = load_users()
+    username = session["username"]
+
+    user = next((u for u in users if u["username"] == username), None)
+
+    photos = load_photos()
+
+    return render_template("photo_contest.html",
+                           user=user,
+                           photos=photos)
+
+
+# -------------------- ЗАВАНТАЖЕННЯ ФОТО --------------------
+
 @app.route("/upload_contest_photo", methods=["POST"])
 def upload_contest_photo():
     if "username" not in session:
         return redirect(url_for("login"))
 
     username = session["username"]
-
-    # Перевірка чи користувач — учасник
-    with open("users.json", "r", encoding="utf-8") as f:
-        users = json.load(f)
+    users = load_users()
 
     user = next((u for u in users if u["username"] == username), None)
 
+    # доступ тільки учасникам
     if not user or not user.get("competition_participant", False):
         return redirect(url_for("photo_contest"))
 
     file = request.files["photo"]
 
-    filename = username + "_" + file.filename
+    # унікальне ім'я файлу
+    filename = secure_filename(username + "_" + file.filename)
     path = os.path.join(UPLOAD_FOLDER, filename)
     file.save(path)
 
     photos = load_photos()
+
     photos.append({
         "username": username,
+        "full_name": f"{user['name']} {user['surname']}",
         "filename": filename,
         "likes": 0,
         "liked_by": []
     })
+
     save_photos(photos)
 
     return redirect(url_for("photo_contest"))
 
 
-# -------------------- ЛАЙКИ (1 ЛАЙК НА ЮЗЕРА) --------------------
+# -------------------- ЛАЙК (1 РАЗ НА ЮЗЕРА) --------------------
+
 @app.route("/like/<int:photo_id>")
 def like(photo_id):
     if "username" not in session:
         return redirect(url_for("login"))
 
     username = session["username"]
-
     photos = load_photos()
 
-    # Якщо ID неправильний
     if photo_id < 0 or photo_id >= len(photos):
         return redirect(url_for("photo_contest"))
 
-    # Якщо вже лайкав — нічого не робимо
     if username in photos[photo_id]["liked_by"]:
         return redirect(url_for("photo_contest"))
 
-    # Додаємо лайк
     photos[photo_id]["likes"] += 1
     photos[photo_id]["liked_by"].append(username)
 
     save_photos(photos)
 
     return redirect(url_for("photo_contest"))
+
 
 
 

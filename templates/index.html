@@ -3,31 +3,41 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <meta name="google-site-verification" content="p6NukcOwJ9nLBdLusoEcawvOJT6rreyjqsXEoPyp1zI" />
-  <title>Шкільне самоврядування "Гроно" , Ліцей "Гроно"</title>
 
+  <!-- Google verification -->
+  <meta name="google-site-verification" content="p6NukcOwJ9nLBdLusoEcawvOJT6rreyjqsXEoPyp1zI" />
+
+  <!-- SEO -->
+  <title>Шкільне самоврядування "Гроно" – Ліцей "Гроно"</title>
+  <meta name="description" content="Офіційний сайт шкільного самоврядування Ліцею 'Гроно'. Новини, події, фотозмагання, команда, ініціативи та життя учнів нашої школи.">
+  <meta name="keywords" content="ліцей Гроно, самоврядування Гроно, школа Гроно, учнівське самоврядування, новини школи, ЛМР, Гроно Львів">
+
+  <!-- OpenGraph (Google + соцмережі) -->
+  <meta property="og:title" content="Шкільне самоврядування Ліцею 'Гроно'">
+  <meta property="og:description" content="Новини, події, ініціативи та життя Ліцею 'Гроно'.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://grono-618921e60154.herokuapp.com">
+  <meta property="og:image" content="https://grono-618921e60154.herokuapp.com/static/img/preview.png">
+
+  <!-- Favicon -->
   <link rel="icon" href="{{ url_for('static', filename='favicon.ico') }}" type="image/x-icon">
+
+  <!-- CSS libraries -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"/>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css"/>
   <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}"/>
 
+  <!-- Mobile fixes -->
   <style>
-    /* Додаткова адаптація героя під телефон */
     @media (max-width: 576px) {
-      .hero h1 {
-        font-size: 1.8rem;
-        text-align: center;
-      }
-      .hero p {
-        font-size: 1rem;
-        text-align: center;
-      }
-      .btn-hero {
-        width: 100%;
-      }
+      .hero h1 { font-size: 1.8rem; text-align: center; }
+      .hero p { font-size: 1rem; text-align: center; }
+      .btn-hero { width: 100%; }
     }
   </style>
+</head>
+
 
 </head>
 <body>

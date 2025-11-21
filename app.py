@@ -56,13 +56,8 @@ def save_news(news):
 
 @app.route('/')
 def index():
-    photos = load_contest_photos()
     
-    # Сортуємо за лайками як на сторінці конкурсу
-    photos_sorted = sorted(photos, key=lambda x: len(x["likes"]), reverse=True)
-
-    return render_template("index.html", contest_photos=photos_sorted)
-
+    return render_template('index.html')
 
 @app.route('/team')
 def team():

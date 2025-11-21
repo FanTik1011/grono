@@ -86,5 +86,13 @@
     "surname": "Щука",
     "email": "viktoriia.shchuka@gmail.com",
     "is_admin": true
+  },
+  {
+    "username": "Marta123406&",
+    "password": "Marta12306&",
+    "name": "Марта",
+    "surname": "Канцір",
+    "email": "kancirmarta@gmail.com",
+    "is_admin": false
   }
 ]

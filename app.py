@@ -197,7 +197,7 @@ def logout():
 @app.route('/register', methods=['GET', 'POST'])
 def register():
     error = None
-    success = None
+
     if request.method == 'POST':
         username = request.form['username']
         password = request.form['password']
@@ -210,6 +210,7 @@ def register():
         if any(u['username'] == username for u in users):
             error = 'Такий користувач вже існує.'
         else:
+            # Створюємо нового користувача
             users.append({
                 'username': username,
                 'password': password,
@@ -219,8 +220,15 @@ def register():
                 'is_admin': False
             })
             save_users(users)
-            success = 'Успішна реєстрація. Тепер увійдіть.'
-    return render_template('register.html', error=error, success=success)
+
+            # 🔥 АВТОМАТИЧНИЙ ВХІД
+            session['user'] = username
+
+            # Переходимо в профіль
+            return redirect(url_for('profile'))
+
+    return render_template('register.html', error=error)
+
 
 
 # ----------------- ДОДАВАННЯ / РЕДАГУВАННЯ -----------------

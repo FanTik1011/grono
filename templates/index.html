@@ -104,24 +104,14 @@
   <div class="container">
     <h2 class="section-title" data-aos="fade-right">Фотозмагання — Виставка</h2>
 
-    <div class="row g-4 mt-3">
-      {% for photo in contest_photos %}
+    <div class="row g-4">
+      {% for photo in contest_photos[:3] %}
       <div class="col-md-4" data-aos="zoom-in" data-aos-delay="{{ loop.index0 * 100 }}">
-        <div class="photo-card shadow glass-card p-2" style="border-radius: 15px;">
-          <img 
-            src="{{ url_for('static', filename='contest_photos/' + photo.filename) }}" 
-            class="photo-img w-100" 
-            style="border-radius: 12px; height: 260px; object-fit: cover;"
-            alt="Фото учасника"
-          >
-          <div class="p-3 text-center">
+        <div class="photo-card">
+          <img src="{{ url_for('static', filename='contest_photos/' + photo.filename) }}" class="photo-img">
+          <div class="p-3">
             <h5 class="fw-bold mb-1">{{ photo.full_name }}</h5>
             <small class="text-secondary">@{{ photo.username }}</small>
-          </div>
-        </div>
-      </div>
-      {% endfor %}
-    </div>
 
     <!-- КРАСИВА ГЛЯНЦЕВА КНОПКА -->
     <div class="text-center mt-4">

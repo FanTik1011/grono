@@ -312,6 +312,11 @@ def api_news():
 @app.route('/competition')
 def competition():
     return render_template('competition.html')
+@app.route('/competition_payment')
+def competition_payment():
+    if 'username' not in session:
+        return redirect(url_for('login'))
+    return render_template('competition_payment.html')
 
 
 

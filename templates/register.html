@@ -24,10 +24,30 @@
       width: 100%;
       max-width: 500px;
       transition: transform 0.3s ease;
+      position: relative;
     }
 
     .register-card:hover {
       transform: translateY(-5px);
+    }
+
+    .back-btn {
+      position: absolute;
+      top: 20px;
+      left: 20px;
+      background-color: #ede7f6;
+      color: #6a1b9a;
+      border: none;
+      padding: 0.5rem 1rem;
+      border-radius: 0.75rem;
+      font-weight: 600;
+      text-decoration: none;
+      transition: 0.3s ease;
+    }
+
+    .back-btn:hover {
+      background-color: #d1c4e9;
+      transform: scale(1.05);
     }
 
     h2 {
@@ -67,48 +87,49 @@
       background-color: #8e24aa;
       transform: scale(1.03);
     }
-
-    @media (max-width: 480px) {
-      .register-card {
-        padding: 1.5rem 1rem;
-        margin: 1rem;
-      }
-
-      h2 {
-        font-size: 1.6rem;
-      }
-    }
   </style>
 </head>
 <body>
   <div class="register-card">
+    
+    <!-- ✔ КНОПКА НАЗАД НА ГОЛОВНУ -->
+    <a href="{{ url_for('index') }}" class="back-btn">⬅ На головну</a>
+
     <h2>✍️ Реєстрація</h2>
+
     {% if error %}
       <div class="alert alert-danger">{{ error }}</div>
     {% endif %}
+
     <form method="POST">
       <div class="mb-3">
         <label class="form-label">Ім’я</label>
         <input type="text" name="name" class="form-control" required>
       </div>
+
       <div class="mb-3">
         <label class="form-label">Прізвище</label>
         <input type="text" name="surname" class="form-control" required>
       </div>
+
       <div class="mb-3">
         <label class="form-label">Email</label>
         <input type="email" name="email" class="form-control" required>
       </div>
+
       <div class="mb-3">
         <label class="form-label">Логін</label>
         <input type="text" name="username" class="form-control" required>
       </div>
+
       <div class="mb-3">
         <label class="form-label">Пароль</label>
         <input type="password" name="password" class="form-control" required>
       </div>
+
       <button type="submit" class="btn btn-primary w-100">Зареєструватися</button>
     </form>
+
     <p class="mt-4 text-center">
       Вже маєте акаунт? <a href="{{ url_for('login') }}">Увійти</a>
     </p>

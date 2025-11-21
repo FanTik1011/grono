@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap:https://grono-618921e60154.herokuapp.com/sitemap.xml

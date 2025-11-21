@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Фотоконкурс — Краща світлина місяця</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+
+    <style>
+        body {
+            background: #f5f6fa;
+        }
+
+        .hero {
+            margin-top: 90px;
+            background: linear-gradient(135deg, #0057b7, #ffd700);
+            color: white;
+            padding: 40px;
+            border-radius: 25px;
+            text-align: center;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+        }
+
+        .photo-card {
+            background: white;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.12);
+            transition: 0.3s;
+        }
+        .photo-card:hover {
+            transform: scale(1.02);
+        }
+
+        .photo-img {
+            width: 100%;
+            height: 320px;
+            object-fit: cover;
+        }
+
+        .like-btn {
+            background: #ff4757;
+            color: white;
+            border: none;
+            padding: 6px 14px;
+            border-radius: 10px;
+            font-size: 1.05rem;
+        }
+
+        .upload-box {
+            background: white;
+            padding: 30px;
+            border-radius: 20px;
+            margin-top: 35px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.15);
+        }
+
+        .img-preview {
+            display: none;
+            max-width: 100%;
+            max-height: 350px;
+            border-radius: 15px;
+            margin-top: 15px;
+        }
+    </style>
+
+</head>
+<body>
+
+<div class="container">
+
+    <!-- HERO -->
+    <div class="hero mb-5">
+        <h1 class="fw-bold">📸 Фотоконкурс</h1>
+        <p class="fs-5 mb-0">Голосуй, переглядай, підтримуй — і обирай найкращу світлину!</p>
+    </div>
+
+    <!-- UPLOAD FORM (ONLY FOR PARTICIPANTS) -->
+    {% if user.competition_participant %}
+    <div class="upload-box">
+        <h3 class="fw-bold mb-3">📤 Завантажити фото на конкурс</h3>
+
+        <form action="{{ url_for('upload_contest_photo') }}" method="POST" enctype="multipart/form-data">
+            <input type="file" id="photoInput" name="photo" class="form-control" accept="image/*" required>
+
+            <img id="preview" class="img-preview">
+
+            <button class="btn btn-primary mt-3">Завантажити</button>
+        </form>
+    </div>
+    {% else %}
+    <div class="alert alert-warning mt-4">
+        ❗ Ви не є учасником конкурсу. Щоб отримати можливість завантажувати фото — оплатіть участь.
+    </div>
+    {% endif %}
+
+    <!-- GALLERY -->
+    <h2 class="fw-bold mt-5 mb-3">🏆 Учасники</h2>
+
+    <div class="row">
+        {% for p in photos %}
+        <div class="col-md-4 mb-4">
+            <div class="photo-card">
+
+                <img src="{{ url_for('static', filename='contest_photos/' + p.filename) }}" class="photo-img">
+
+                <div class="p-3">
+
+                    <h5 class="fw-bold mb-1">{{ p.full_name }}</h5>
+                    <small class="text-secondary">@{{ p.username }}</small>
+
+                    <div class="d-flex justify-content-between align-items-center mt-3">
+                        <span class="fs-5">❤️ {{ p.likes }}</span>
+
+                        <a href="{{ url_for('like', photo_id=loop.index0) }}" class="btn like-btn">
+                            <i class="bi bi-heart-fill"></i> Лайк
+                        </a>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+
+</div>
+
+<!-- PREVIEW SCRIPT -->
+<script>
+document.getElementById("photoInput").addEventListener("change", function(event) {
+    const img = document.getElementById("preview");
+    img.src = URL.createObjectURL(event.target.files[0]);
+    img.style.display = "block";
+});
+</script>
+
+</body>
+</html>

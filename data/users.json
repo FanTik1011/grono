@@ -6,7 +6,7 @@
     "surname": "Котляров",
     "email": "vovkot39@gmail.com",
     "is_admin": true,
-    "competition_participant": false
+    "competition_participant": true
   },
   {
     "username": "Lemoni_x",

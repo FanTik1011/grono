@@ -31,24 +31,39 @@
       transform: translateY(-5px);
     }
 
-    .back-btn {
-      position: absolute;
-      top: 20px;
-      left: 20px;
-      background-color: #ede7f6;
-      color: #6a1b9a;
-      border: none;
-      padding: 0.5rem 1rem;
-      border-radius: 0.75rem;
-      font-weight: 600;
-      text-decoration: none;
-      transition: 0.3s ease;
-    }
 
-    .back-btn:hover {
-      background-color: #d1c4e9;
-      transform: scale(1.05);
+  .back-btn {
+    position: absolute;
+    top: 15px;
+    left: 15px;
+    background-color: #ede7f6;
+    color: #6a1b9a;
+    border: none;
+    padding: 0.35rem 0.75rem;
+    border-radius: 0.6rem;
+    font-weight: 600;
+    font-size: 0.85rem;
+    text-decoration: none;
+    transition: 0.3s ease;
+    z-index: 10;
+  }
+
+  .back-btn:hover {
+    background-color: #d1c4e9;
+    transform: scale(1.04);
+  }
+
+  /* Адаптива */
+  @media (max-width: 480px) {
+    .back-btn {
+      padding: 0.3rem 0.6rem;
+      font-size: 0.75rem;
+      top: 10px;
+      left: 10px;
     }
+  }
+
+
 
     h2 {
       text-align: center;

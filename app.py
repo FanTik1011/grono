@@ -317,8 +317,8 @@ def competition_payment():
     if 'username' not in session:
         return redirect(url_for('login'))
     return render_template('competition_payment.html')
+  # ----------------- ФАЙЛИ -----------------
 USERS_FILE = "data/users.json"
-
 CONTEST_DATA = "data/contest_photos.json"
 CONTEST_FOLDER = os.path.join(app.root_path, "static", "contest_photos")
 
@@ -327,7 +327,6 @@ os.makedirs(CONTEST_FOLDER, exist_ok=True)
 
 
 # ----------------- ФУНКЦІЇ -----------------
-
 def load_users():
     if not os.path.exists(USERS_FILE):
         return []
@@ -347,8 +346,7 @@ def save_contest_photos(data):
         json.dump(data, f, ensure_ascii=False, indent=2)
 
 
-# ----------------- МАРШРУТИ -----------------
-
+# ----------------- СТОРІНКА КОНКУРСУ -----------------
 @app.route("/photo_contest")
 def photo_contest():
     if "username" not in session:
@@ -359,14 +357,13 @@ def photo_contest():
 
     photos = load_contest_photos()
 
-    # сортування по лайкам (більше лайків — вище)
+    # сортування по кількості лайків
     photos_sorted = sorted(photos, key=lambda x: len(x["likes"]), reverse=True)
 
     return render_template("photo_contest.html", user=user, photos=photos_sorted)
 
 
 # ----------------- ЗАВАНТАЖЕННЯ ФОТО -----------------
-
 @app.route("/upload_contest_photo", methods=["POST"])
 def upload_contest_photo():
     if "username" not in session:
@@ -375,7 +372,7 @@ def upload_contest_photo():
     users = load_users()
     user = next((u for u in users if u["username"] == session["username"]), None)
 
-    # Доступ лише тим, хто має доступ
+    # доступ лише тим, хто має competition_participant = true
     if not user.get("competition_participant", False):
         return "Ви не учасник конкурсу.", 403
 
@@ -392,7 +389,7 @@ def upload_contest_photo():
 
     photos = load_contest_photos()
 
-    # генеруємо id
+    # генерація ID
     photo_id = max([p["id"] for p in photos], default=0) + 1
 
     photos.append({
@@ -409,7 +406,6 @@ def upload_contest_photo():
 
 
 # ----------------- ЛАЙКИ -----------------
-
 @app.route("/like/<int:photo_id>")
 def like(photo_id):
     if "username" not in session:
@@ -422,10 +418,11 @@ def like(photo_id):
     if not photo:
         return "Фото не знайдено", 404
 
+    # лайк / дизлайк
     if username in photo["likes"]:
-        photo["likes"].remove(username)  # зняти лайк
+        photo["likes"].remove(username)
     else:
-        photo["likes"].append(username)  # поставити лайк
+        photo["likes"].append(username)
 
     save_contest_photos(photos)
 
@@ -433,7 +430,6 @@ def like(photo_id):
 
 
 # ----------------- ВИДАЛЕННЯ ФОТО -----------------
-
 @app.route("/delete_photo/<int:photo_id>")
 def delete_photo(photo_id):
     if "username" not in session:
@@ -453,12 +449,12 @@ def delete_photo(photo_id):
     if photo["username"] != username and not user.get("is_admin", False):
         return "Немає прав для видалення", 403
 
-    # видалити файл з папки
+    # видалити файл
     file_path = os.path.join(CONTEST_FOLDER, photo["filename"])
     if os.path.exists(file_path):
         os.remove(file_path)
 
-    # видалити з JSON
+    # прибрати з json
     photos = [p for p in photos if p["id"] != photo_id]
     save_contest_photos(photos)
 

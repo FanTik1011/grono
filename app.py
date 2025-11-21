@@ -294,10 +294,13 @@ def edit_news(news_id):
         return redirect(url_for('profile'))
 
     return render_template('edit_news.html', article=article)
+@app.route('/robots.txt')
+def robots():
+    return send_from_directory('static', 'robots.txt')
+
 @app.route('/sitemap.xml')
 def sitemap():
-    return send_from_directory(app.static_folder, 'sitemap.xml')
-
+    return send_from_directory('static', 'sitemap.xml')
 
 
 # ----------------- API -----------------

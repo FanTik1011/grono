@@ -6,74 +6,125 @@
     <title>Оплата участі у фотозмаганні</title>
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet" />
 
     <style>
-        body { background: #f5f6fa; }
+        body {
+            background: linear-gradient(135deg, #e3f2fd, #fff);
+            min-height: 100vh;
+        }
+
         .payment-box {
-            background: white;
-            padding: 30px;
-            border-radius: 20px;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+            background: #ffffff;
+            padding: 40px;
+            border-radius: 25px;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.10);
             margin-top: 90px;
+            animation: fadeIn 0.6s ease;
         }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
         .highlight {
-            background: #fff3cd;
-            border-left: 4px solid #ffca2c;
-            padding: 10px 15px;
-            border-radius: 10px;
-            margin-bottom: 20px;
+            background: #fff7d6;
+            border-left: 5px solid #f1c40f;
+            padding: 15px 20px;
+            border-radius: 15px;
+            margin-bottom: 25px;
+            font-size: 1.1rem;
         }
+
         .mono-btn {
-            background: black;
-            color: white;
-            padding: 12px 25px;
-            border-radius: 10px;
+            background: #000;
+            color: #fff;
+            padding: 14px 30px;
+            border-radius: 12px;
             text-decoration: none;
-            display: inline-block;
-            margin-top: 10px;
+            font-size: 1.15rem;
+            transition: 0.2s;
         }
+
+        .mono-btn:hover {
+            background: #222;
+            transform: scale(1.03);
+        }
+
+        .payment-title {
+            font-size: 2rem;
+        }
+
+        .payment-icon {
+            font-size: 3rem;
+            color: #0d6efd;
+            margin-bottom: 15px;
+        }
+
+        .requisites-box {
+            background: #f8fbff;
+            padding: 20px;
+            border-radius: 15px;
+            border: 1px solid #dee2e6;
+        }
+
+        .back-btn {
+            transition: 0.2s;
+        }
+
+        .back-btn:hover {
+            transform: scale(1.05);
+        }
+
     </style>
 </head>
 
 <body>
+
 <div class="container">
     <div class="payment-box">
 
-        <h2 class="fw-bold text-center mb-3">💳 Оплата участі у фотозмаганні</h2>
+        <div class="text-center">
+            <i class="bi bi-credit-card payment-icon"></i>
+            <h2 class="fw-bold payment-title">Оплата участі у фотозмаганні</h2>
+        </div>
 
-        <p class="text-center fs-5">
-            Вартість участі: <strong>50 грн</strong>
+        <p class="text-center fs-5 mt-3 mb-4">
+            Вартість участі: <strong class="text-success">50 грн</strong>
         </p>
 
         <div class="highlight">
-            <strong>❗ Дуже важливо:</strong>  
-            При оплаті <u>обов'язково</u> впиши у коментарі свій <strong>логін з сайту</strong>.  
+            <strong><i class="bi bi-exclamation-circle"></i> Дуже важливо:</strong><br>
+            При оплаті <u>обов'язково</u> впиши у коментарі свій <strong>логін з сайту</strong>.<br>
             Інакше ми не зможемо активувати твою участь.
         </div>
 
-        <h4 class="fw-bold">1️⃣ Реквізити для оплати:</h4>
-        <ul class="fs-5">
-            <li><strong>Monobank:</strong>4441 1111 5570 3220</li>
-            <li><strong>Отримувач:</strong> Самоврядування Ліцею "Гроно"</li>
-            <li><strong>Сума:</strong> 50 грн</li>
-        </ul>
+        <h4 class="fw-bold mb-2">1️⃣ Реквізити для оплати:</h4>
 
-        <h4 class="fw-bold mt-4">2️⃣ Обов'язково вкажи:</h4>
-        <p class="fs-5">
-            <strong>Коментар до платежу:</strong> <span class="text-primary">{{ session.username }}</span>
+        <div class="requisites-box mb-4">
+            <p class="fs-5 mb-1"><strong>💳 Monobank:</strong> 4441 1111 5570 3220</p>
+            <p class="fs-5 mb-1"><strong>👤 Отримувач:</strong> Самоврядування Ліцею "Гроно"</p>
+            <p class="fs-5"><strong>💰 Сума:</strong> 50 грн</p>
+        </div>
+
+        <h4 class="fw-bold">2️⃣ Обов'язково вкажи:</h4>
+        <p class="fs-5 mb-4">
+            <strong>Коментар до платежу:</strong>
+            <span class="text-primary fw-bold">{{ session.username }}</span>
         </p>
 
-        <h4 class="fw-bold mt-4">3️⃣ Посилання на оплату:</h4>
-        <a class="mono-btn" target="_blank"
-           href="https://send.monobank.ua/jar/4NVKK8FR1F">
-            Оплатити через Monobank
+        <h4 class="fw-bold">3️⃣ Оплатити онлайн:</h4>
+        <a class="mono-btn" target="_blank" href="https://send.monobank.ua/jar/4NVKK8FR1F">
+            <i class="bi bi-box-arrow-up-right"></i> Оплатити через Monobank
         </a>
 
         <div class="text-center mt-4">
-            <a href="{{ url_for('competition') }}" class="btn btn-secondary">
+            <a href="{{ url_for('competition') }}" class="btn btn-secondary back-btn">
                 ⬅ Повернутися назад
             </a>
         </div>
+
     </div>
 </div>
 

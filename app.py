@@ -56,7 +56,8 @@ def save_news(news):
 
 @app.route('/')
 def index():
-    return render_template('index.html')
+    photos = load_contest_photos()
+    return render_template("index.html", contest_photos=photos)
 
 @app.route('/team')
 def team():

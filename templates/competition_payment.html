@@ -76,6 +76,12 @@
         .back-btn:hover {
             transform: scale(1.05);
         }
+                    .small-mono {
+                padding: 8px 18px !important;
+                font-size: 0.95rem !important;
+                border-radius: 8px !important;
+            }
+
 
     </style>
 </head>
@@ -115,9 +121,11 @@
         </p>
 
         <h4 class="fw-bold">3️⃣ Оплатити онлайн:</h4>
-        <a class="mono-btn" target="_blank" href="https://send.monobank.ua/jar/4NVKK8FR1F">
-            <i class="bi bi-box-arrow-up-right"></i> Оплатити через Monobank
-        </a>
+                    <a class="mono-btn small-mono" target="_blank" 
+            href="https://send.monobank.ua/jar/4NVKK8FR1F">
+                <i class="bi bi-box-arrow-up-right"></i> Оплатити через Monobank
+            </a>
+
 
         <div class="text-center mt-4">
             <a href="{{ url_for('competition') }}" class="btn btn-secondary back-btn">

@@ -5,6 +5,8 @@ from werkzeug.utils import secure_filename
 import os
 from flask import send_file
 import zipfile
+from flask import Flask, send_from_directory
+
 
 app = Flask(__name__)
 app.secret_key = 'секретний_ключ'
@@ -292,6 +294,10 @@ def edit_news(news_id):
         return redirect(url_for('profile'))
 
     return render_template('edit_news.html', article=article)
+@app.route('/sitemap.xml')
+def sitemap():
+    return send_from_directory(app.static_folder, 'sitemap.xml')
+
 
 
 # ----------------- API -----------------

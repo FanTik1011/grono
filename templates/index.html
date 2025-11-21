@@ -99,6 +99,42 @@
       </div>
     </div>
   </section>
+  <!-- ФОТОЗМАГАННЯ – ВИСТАВКА -->
+<section class="py-5">
+  <div class="container">
+    <h2 class="section-title" data-aos="fade-right">Фотозмагання — Виставка</h2>
+
+    {% if contest_photos and contest_photos|length > 0 %}
+    <div class="row g-4 mt-3">
+
+      {% for photo in contest_photos[:6] %}
+      <div class="col-6 col-md-4" data-aos="zoom-in">
+        <div class="glass-card p-2 shadow-sm" style="border-radius: 12px;">
+          <img 
+            src="{{ url_for('static', filename='contest_photos/' + photo.filename) }}"
+            class="w-100" 
+            style="border-radius: 10px; height: 250px; object-fit: cover;"
+          >
+          <p class="mt-2 text-center fw-semibold">{{ photo.full_name }}</p>
+        </div>
+      </div>
+      {% endfor %}
+
+    </div>
+
+    <div class="text-center mt-4">
+      <a href="{{ url_for('photo_contest') }}" class="btn btn-primary px-4 py-2">
+        Переглянути всі фото
+      </a>
+    </div>
+
+    {% else %}
+    <p class="text-center text-muted mt-3">Наразі ще немає завантажених фотографій.</p>
+    {% endif %}
+
+  </div>
+</section>
+
 
   <script src="{{ url_for('static', filename='js/news.js') }}"></script>
 

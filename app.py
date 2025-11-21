@@ -300,6 +300,11 @@ def edit_news(news_id):
 def api_news():
     return jsonify(load_news())
 
+@app.route('/competition')
+def competition():
+    return render_template('competition.html')
+
+
 
 # ----------------- ЗАПУСК -----------------
 

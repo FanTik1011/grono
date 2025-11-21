@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Фотозмагання</title>
+
+    <!-- Bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="icon" href="{{ url_for('static', filename='favicon.ico') }}" type="image/x-icon">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"/>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css"/>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}"/>
+
+
+    <style>
+
+
+        /* --- PAGE STYLE --- */
+        body {
+            background: #f5f6fa;
+        }
+        .hero-box {
+            background: linear-gradient(135deg, #0057b7, #ffd700);
+            color: white;
+            border-radius: 20px;
+            padding: 40px;
+            text-align: center;
+            margin-bottom: 40px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+            margin-top: 90px;
+        }
+        .section-card {
+            border-radius: 20px;
+            padding: 25px;
+            background: white;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+            margin-bottom: 25px;
+        }
+    </style>
+</head>
+
+<body>
+
+<!-- NAVBAR -->
+  <nav class="navbar navbar-expand-lg glass-navbar fixed-top">
+    <div class="container">
+      <a class="navbar-brand fw-bold" href="{{ url_for('index') }}">
+        Самоврядування<br>Ліцею "Гроно"
+      </a>
+
+      <button class="navbar-toggler custom-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item"><a class="nav-link" href="{{ url_for('news') }}">Новини</a></li>
+          <li class="nav-item"><a class="nav-link" href="#about-card">Про нас</a></li>
+          <li class="nav-item"><a class="nav-link" href="{{ url_for('team') }}">Наша команда</a></li>
+
+          {% if session.username %}
+            <li class="nav-item"><a class="nav-link" href="{{ url_for('profile') }}">Мій профіль</a></li>
+            <li class="nav-item"><a class="nav-link" href="{{ url_for('logout') }}">Вийти</a></li>
+          {% else %}
+            <li class="nav-item"><a class="nav-link" href="{{ url_for('login') }}">Увійти</a></li>
+            <li class="nav-item"><a class="nav-link" href="{{ url_for('register') }}">Реєстрація</a></li>
+          {% endif %}
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+
+
+<!-- PAGE CONTENT -->
+<div class="container py-4">
+
+    <!-- Верхній блок -->
+    <div class="hero-box">
+        <h1 class="fw-bold mb-3">📸 Фотозмагання "Краща світлина місяця"</h1>
+        <p class="mb-0 fs-5">Покажи свій талант, виграй приз та підтримай ЗСУ!</p>
+    </div>
+
+    <!-- Старт змагання -->
+    <div class="section-card">
+        <h3 class="fw-bold mb-3">📅 Коли починаються змагання?</h3>
+        <p class="fs-5">
+            Новий сезон фотозмагання стартує <strong>1 січня</strong>.<br>
+            З цієї дати можна подавати фото, а голосування триватиме до кінця місяця.
+        </p>
+    </div>
+
+    <!-- Як це працює -->
+    <div class="section-card">
+        <h3 class="fw-bold mb-3">🎯 Як це працює?</h3>
+        <ul class="fs-5">
+            <li>Участь у змаганні — <strong>50 грн</strong>.</li>
+            <li>60% внеску йде на <strong>ЗСУ</strong>.</li>
+            <li>40% формує призовий фонд переможця.</li>
+            <li>Переможець — фото з найбільшою кількістю лайків.</li>
+            <li>Голосувати можуть всі користувачі.</li>
+        </ul>
+    </div>
+
+    <!-- Що отримуєш -->
+    <div class="section-card">
+        <h3 class="fw-bold mb-3">🏆 Що ти отримуєш?</h3>
+        <ul class="fs-5">
+            <li>Грошовий приз.</li>
+            <li>Підтримка ЗСУ.</li>
+            <li>Популярність та увага до твоєї світлини.</li>
+        </ul>
+    </div>
+
+    <!-- Як подати фото -->
+    <div class="section-card">
+        <h3 class="fw-bold mb-3">📌 Як подати фотографію?</h3>
+        <ol class="fs-5">
+            <li>Увійди або зареєструйся.</li>
+            <li>Перейди у вкладку “Фотозмагання”.</li>
+            <li>Завантаж свою фотографію.</li>
+            <li>Дочекайся модерації.</li>
+            <li>Змагайся за лайки!</li>
+        </ol>
+    </div>
+
+    <!-- Кнопка -->
+    <div class="section-card text-center">
+        <h3 class="fw-bold mb-2">❤️ Допомагай та вигравай!</h3>
+        <p class="fs-5 mb-3">
+            Участь у змаганні — це можливість виграти гроші та підтримати наших захисників.
+        </p>
+        <a href="#" class="btn btn-primary btn-lg px-5 disabled">
+            Участь стартує 1 січня
+        </a>
+    </div>
+
+</div>
+
+<!-- Bootstrap JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+</body>
+</html>

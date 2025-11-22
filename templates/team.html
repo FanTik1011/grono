@@ -74,6 +74,11 @@
     </div>
   </div>
 </section>
+<!-- Графік Міністерств -->
+    <div class="container my-5 text-center" data-aos="fade-up">
+    <h2 class="section-title mb-4">Статистика Міністерства</h2>
+    <div id="myChart" style="margin: 0 auto; width:100%; max-width:480px; height:480px;"></div>
+  </div>
 
 <!-- Footer -->
 <footer class="footer py-4">
@@ -98,6 +103,46 @@
     const nav = document.querySelector('.glass-navbar');
     nav.classList.toggle('scrolled', window.scrollY > 50);
   });
+</script>
+<!-- Google Charts -->
+  <script src="https://www.gstatic.com/charts/loader.js"></script>
+
+    <script>
+  google.charts.load('current', {'packages':['corechart']});
+  google.charts.setOnLoadCallback(drawChart);
+
+  function drawChart() {
+    const data = google.visualization.arrayToDataTable([
+      ['Міністерство', 'Кількість'],
+      ['Оформлення', 10],
+      ['Дисципліна', 9],
+      ['Інфо та Новини', 7],
+      ['Спорт', 6],
+      ['Культура', 14],
+      ['Милосердя', 10]
+    ]);
+
+    const options = {
+      title: '',
+      is3D: true,
+      pieSliceText: 'percentage',
+      pieSliceTextStyle: {
+        fontSize: 14,
+        bold: true
+      },
+      legend: {
+        position: 'bottom',
+        textStyle: { fontSize: 14 }
+      },
+      chartArea: {
+        width: '100%',
+        height: '80%'
+      }
+    };
+
+    const chart = new google.visualization.PieChart(document.getElementById('myChart'));
+    chart.draw(data, options);
+  }
 </script>
 </body>
 </html>

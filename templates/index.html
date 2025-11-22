@@ -4,237 +4,255 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 
-  <title>Шкільне самоврядування "Гроно" – Ліцей "Гроно"</title>
+  <!-- Google verification -->
+  <meta name="google-site-verification" content="p6NukcOwJ9nLBdLusoEcawvOJT6rreyjqsXEoPyp1zI" />
 
   <!-- SEO -->
+  <title>Шкільне самоврядування "Гроно" – Ліцей "Гроно"</title>
   <meta name="description" content="Офіційний сайт шкільного самоврядування Ліцею 'Гроно'. Новини, події, фотозмагання, команда, ініціативи та життя учнів нашої школи.">
+  <meta name="keywords" content="ліцей Гроно, самоврядування Гроно, школа Гроно, учнівське самоврядування, новини школи, ЛМР, Гроно Львів">
+
+  <!-- OpenGraph (Google + соцмережі) -->
+  <meta property="og:title" content="Шкільне самоврядування Ліцею 'Гроно'">
+  <meta property="og:description" content="Новини, події, ініціативи та життя Ліцею 'Гроно'.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://grono-618921e60154.herokuapp.com">
+  <meta property="og:image" content="https://grono-618921e60154.herokuapp.com/static/img/preview.png">
+  <meta name="robots" content="index, follow">
+
 
   <!-- Favicon -->
   <link rel="icon" href="{{ url_for('static', filename='favicon.ico') }}" type="image/x-icon">
 
-  <!-- CSS Libraries -->
+  <!-- CSS libraries -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"/>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css"/>
   <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}"/>
 
-  <!-- MOBILE IMPROVEMENTS -->
+  <!-- Mobile fixes -->
   <style>
-    /* HERO */
-    .hero {
-      padding: 110px 0 70px;
-      text-align: center;
-      background-size: cover;
-      background-position: center;
-    }
-    .hero h1 {
-      font-size: 2.2rem;
-      font-weight: 700;
-      line-height: 1.2;
-    }
-    .hero p {
-      font-size: 1.15rem;
-      opacity: 0.9;
-    }
-    .btn-hero {
-      border-radius: 14px;
-      padding: 12px 25px;
-      font-size: 1.1rem;
-      font-weight: 600;
-    }
-
-    /* MOBILE FIXES */
     @media (max-width: 576px) {
-      .section-title {
-        text-align: center !important;
-        font-size: 1.65rem;
-      }
-      .glass-card {
-        padding: 20px 15px !important;
-      }
+      .hero h1 { font-size: 1.8rem; text-align: center; }
+      .hero p { font-size: 1rem; text-align: center; }
+      .btn-hero { width: 100%; }
     }
-
-    /* GALLERY IMAGES */
-    .mini-photo {
-      width: 100%;
-      height: 220px;
-      border-radius: 14px;
-      object-fit: cover;
-      box-shadow: 0 4px 15px rgba(0,0,0,0.15);
-      transition: 0.3s;
-    }
-    .mini-photo:hover {
-      transform: scale(1.03);
-    }
-
-    /* GLASS BUTTON */
-    .btn-glass {
-      display: inline-block;
-      background: rgba(255, 255, 255, 0.15);
-      backdrop-filter: blur(12px);
-      border: 1px solid rgba(255,255,255,0.5);
-      padding: 14px 28px;
-      border-radius: 16px;
-      font-size: 1.1rem;
-      font-weight: 600;
-      color: #fff;
-      transition: 0.35s;
-      text-decoration: none;
-    }
-    .btn-glass:hover {
-      background: rgba(255, 193, 7, 0.38);
-      border-color: rgba(255,193,7,0.8);
-      transform: translateY(-4px);
-      color: #fff;
-    }
-
   </style>
 </head>
 
+
+</head>
 <body>
 
-<!-- Прелоадер -->
-<div id="preloader">
-  <div class="glass-loader">
-    <div class="pulse"></div>
-    <p class="loading-text">Завантаження...</p>
-  </div>
-</div>
-
-<!-- Навігація -->
-<nav class="navbar navbar-expand-lg glass-navbar fixed-top">
-  <div class="container">
-    <a class="navbar-brand fw-bold" href="{{ url_for('index') }}">
-      Самоврядування<br>Ліцею "Гроно"
-    </a>
-
-    <button class="navbar-toggler custom-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-
-    <div class="collapse navbar-collapse" id="navbarNav">
-      <ul class="navbar-nav ms-auto">
-        <li class="nav-item"><a class="nav-link" href="{{ url_for('news') }}">Новини</a></li>
-        <li class="nav-item"><a class="nav-link" href="{{ url_for('competition') }}">Інформація про фотозмагання</a></li>
-        <li class="nav-item"><a class="nav-link" href="{{ url_for('team') }}">Наша команда</a></li>
-
-        {% if session.username %}
-        <li class="nav-item"><a class="nav-link" href="{{ url_for('profile') }}">Мій профіль</a></li>
-        <li class="nav-item"><a class="nav-link" href="{{ url_for('logout') }}">Вийти</a></li>
-        {% else %}
-        <li class="nav-item"><a class="nav-link" href="{{ url_for('login') }}">Увійти</a></li>
-        <li class="nav-item"><a class="nav-link" href="{{ url_for('register') }}">Реєстрація</a></li>
-        {% endif %}
-      </ul>
+  <!-- Прелоадер -->
+  <div id="preloader">
+    <div class="glass-loader">
+      <div class="pulse"></div>
+      <p class="loading-text">Завантаження...</p>
     </div>
   </div>
-</nav>
 
-<!-- HERO -->
-<header class="hero">
-  <div class="container" data-aos="fade-up">
-    <h1>Вітаємо на сайті самоврядування!</h1>
-    <p>Новини, події, конкурси та ініціативи нашої шкільної спільноти.</p>
-    <a href="{{ url_for('news') }}" class="btn btn-hero shadow btn-warning text-dark fw-bold">Переглянути новини</a>
-  </div>
-</header>
+  <!-- Навігація -->
+  <nav class="navbar navbar-expand-lg glass-navbar fixed-top">
+    <div class="container">
+      <a class="navbar-brand fw-bold" href="{{ url_for('index') }}">
+        Самоврядування<br>Ліцею "Гроно"
+      </a>
 
-<!-- Останні новини -->
-<section class="py-5">
-  <div class="container">
-    <h2 class="section-title" data-aos="fade-right">Останні новини</h2>
-    <div id="news-container" class="row g-4"></div>
-  </div>
-</section>
+      <button class="navbar-toggler custom-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+        <span class="navbar-toggler-icon"></span>
+      </button>
 
-<!-- ФОТОЗМАГАННЯ -->
-<section class="py-5">
-  <div class="container">
-    <h2 class="section-title" data-aos="fade-right">Фотозмагання</h2>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item"><a class="nav-link" href="{{ url_for('news') }}">Новини</a></li>
+          <li class="nav-item"><a class="nav-link" href="{{ url_for('competition') }}">Інформація про фотозмагання</a></li>
+          <li class="nav-item"><a class="nav-link" href="{{ url_for('team') }}">Наша команда</a></li>
 
-    <!-- 3 PREVIEW PHOTOS -->
-    <div class="row g-3 mt-2">
-      <div class="col-4">
-        <img src="/static/img/contest/1.jpg" class="mini-photo" alt="">
-      </div>
-      <div class="col-4">
-        <img src="/static/img/contest/2.jpg" class="mini-photo" alt="">
-      </div>
-      <div class="col-4">
-        <img src="/static/img/contest/3.jpg" class="mini-photo" alt="">
+          {% if session.username %}
+            <li class="nav-item"><a class="nav-link" href="{{ url_for('profile') }}">Мій профіль</a></li>
+            <li class="nav-item"><a class="nav-link" href="{{ url_for('logout') }}">Вийти</a></li>
+          {% else %}
+            <li class="nav-item"><a class="nav-link" href="{{ url_for('login') }}">Увійти</a></li>
+            <li class="nav-item"><a class="nav-link" href="{{ url_for('register') }}">Реєстрація</a></li>
+          {% endif %}
+        </ul>
       </div>
     </div>
+  </nav>
 
-    <!-- Buttons -->
-    <div class="text-center mt-4 d-flex flex-column gap-3">
+  <!-- Герой -->
+  <header class="hero">
+    <div class="container" data-aos="fade-up">
+      <h1>Вітаємо на сайті самоврядування!</h1>
+      <p>Тут ви знайдете найсвіжіші новини, події та ініціативи нашої шкільної спільноти.</p>
+      <a href="{{ url_for('news') }}" class="btn btn-hero mt-3 shadow">Переглянути новини</a>
+    </div>
+  </header>
 
-      <a href="{{ url_for('photo_contest') }}" class="btn-glass">
+  <!-- Новини -->
+  <section class="py-5">
+    <div class="container">
+      <h2 class="section-title" data-aos="fade-right">Останні новини</h2>
+      <div id="news-container" class="row g-4">
+        <!-- Новини вставляє news.js -->
+      </div>
+    </div>
+  </section>
+  <!-- ФОТОЗМАГАННЯ – ВИСТАВКА -->
+<section class="py-5">
+  <div class="container">
+    <h2 class="section-title" data-aos="fade-right">Фотозмагання — Виставка</h2>
+
+
+    <!-- КРАСИВА ГЛЯНЦЕВА КНОПКА -->
+    <div class="text-center mt-4">
+      <a href="{{ url_for('photo_contest') }}" class="btn-glass-contest px-5 py-3">
         <i class="bi bi-camera-fill me-2"></i> Переглянути всі фото
       </a>
-
-      <a href="{{ url_for('competition') }}" class="btn btn-warning fw-bold px-4 py-3" style="border-radius:16px;">
-        <i class="bi bi-person-plus-fill me-2"></i> Зареєструватися на змагання
-      </a>
-
     </div>
 
   </div>
 </section>
 
-<!-- ПРО НАС -->
-<section class="py-5">
-  <div class="container">
-    <div class="glass-card" data-aos="zoom-in">
-      <h1>Про самоврядування</h1>
-      <p class="mt-3">
-        Самоврядування Ліцею "Гроно" — це команда активних учнів, які організовують заходи, турніри, конкурси та представляють інтереси школярів.
-      </p>
+<style>
+  .btn-glass-contest {
+    display: inline-block;
+    background: rgba(255, 255, 255, 0.18);
+    backdrop-filter: blur(12px);
+    border: 1px solid rgba(255,255,255,0.4);
+    border-radius: 15px;
+    padding: 12px 32px;
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: #ffffff;
+    transition: all 0.35s ease;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.12);
+    text-decoration: none;
+  }
 
-      <h2 class="mt-4">Слідкуй за нами</h2>
-      <div class="text-center social-icons my-3">
-        <a href="https://www.instagram.com/lyceum_grono/" target="_blank"><i class="bi bi-instagram"></i></a>
-        <a href="https://www.facebook.com/p/Ліцей-Гроно-ЛМР-100063561729944/" target="_blank"><i class="bi bi-facebook"></i></a>
-        <a href="http://grono.lviv.ua" target="_blank"><i class="bi bi-globe2"></i></a>
+  .btn-glass-contest:hover {
+    background: rgba(255, 193, 7, 0.35);
+    border-color: rgba(255, 193, 7, 0.7);
+    transform: translateY(-4px);
+    box-shadow: 0 6px 30px rgba(255, 193, 7, 0.4);
+    color: #fff;
+  }
+</style>
+
+
+
+
+  <script src="{{ url_for('static', filename='js/news.js') }}"></script>
+
+  <!-- Графік Міністерств -->
+    <div class="container my-5 text-center" data-aos="fade-up">
+    <h2 class="section-title mb-4">Статистика Міністерства</h2>
+    <div id="myChart" style="margin: 0 auto; width:100%; max-width:480px; height:480px;"></div>
+  </div>
+
+
+  <!-- Про нас -->
+  <section class="py-5">
+    <div class="container">
+      <div class="glass-card" id="about-card" data-aos="zoom-in">
+        <h1>Про самоврядування</h1>
+        <p class="mt-3">
+          Самоврядування Ліцею "Гроно" — це команда активних учнів, які організовують заходи, турніри, конкурси та представляють інтереси школярів.
+        </p>
+
+        <h2 class="mt-4">Слідкуй за нами</h2>
+        <div class="text-center social-icons my-3">
+          <a href="https://www.instagram.com/lyceum_grono/" target="_blank"><i class="bi bi-instagram"></i></a>
+          <a href="https://www.facebook.com/p/Ліцей-Гроно-ЛМР-100063561729944/" target="_blank"><i class="bi bi-facebook"></i></a>
+          <a href="http://grono.lviv.ua" target="_blank"><i class="bi bi-globe2"></i></a>
+        </div>
       </div>
     </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer py-4">
+    <div class="container text-center">
+      <p class="mb-1">&copy; 2025 Ліцей "Гроно". Всі права захищені.</p>
+      <p class="mb-0">Зараз: <span id="live-time"></span></p>
+    </div>
+  </footer>
+
+  <!-- Кнопка наверх -->
+  <div class="scroll-to-top" id="scroll-to-top">
+    <i class="bi bi-arrow-up-circle"></i>
   </div>
-</section>
 
-<!-- Footer -->
-<footer class="footer py-4">
-  <div class="container text-center">
-    <p class="mb-1">&copy; 2025 Ліцей "Гроно". Всі права захищені.</p>
-    <p class="mb-0">Зараз: <span id="live-time"></span></p>
-  </div>
-</footer>
+  <!-- Scripts -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
+  <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
 
-<!-- Стрілка наверх -->
-<div class="scroll-to-top" id="scroll-to-top">
-  <i class="bi bi-arrow-up-circle"></i>
-</div>
+  <script>
+    AOS.init();
 
-<!-- JS -->
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
-<script src="{{ url_for('static', filename='js/news.js') }}"></script>
+    // Живий годинник
+    setInterval(() => {
+      const now = new Date();
+      document.getElementById("live-time").textContent = now.toLocaleTimeString("uk-UA");
+    }, 1000);
 
-<script>
-AOS.init();
+    // Кнопка наверх
+    const scrollBtn = document.getElementById("scroll-to-top");
+    scrollBtn.addEventListener("click", () => window.scrollTo({ top: 0, behavior: "smooth" }));
 
-// Годинник
-setInterval(() => {
-  document.getElementById("live-time").textContent =
-    new Date().toLocaleTimeString("uk-UA");
-}, 1000);
+    window.addEventListener("scroll", () => {
+      scrollBtn.style.opacity = window.scrollY > 300 ? 1 : 0;
+    });
 
-// Scroll button
-const scrollBtn = document.getElementById("scroll-to-top");
-scrollBtn.addEventListener("click", () =>
-  window.scrollTo({ top: 0, behavior: "smooth" })
-);
-window.addEventListener("scroll", () => {
-  scrollBtn.style.opacity = window.scrollY > 300 ? 1 : 0;
-});
+    // Прелоадер
+    window.addEventListener("load", () => {
+      const preloader = document.getElementById("preloader");
+      setTimeout(() => preloader.classList.add("fade-out"), 200);
+      setTimeout(() => preloader.style.display = "none", 1400);
+    });
+  </script>
+
+  <!-- Google Charts -->
+  <script src="https://www.gstatic.com/charts/loader.js"></script>
+
+    <script>
+  google.charts.load('current', {'packages':['corechart']});
+  google.charts.setOnLoadCallback(drawChart);
+
+  function drawChart() {
+    const data = google.visualization.arrayToDataTable([
+      ['Міністерство', 'Кількість'],
+      ['Оформлення', 10],
+      ['Дисципліна', 9],
+      ['Інфо та Новини', 7],
+      ['Спорт', 6],
+      ['Культура', 14],
+      ['Милосердя', 10]
+    ]);
+
+    const options = {
+      title: '',
+      is3D: true,
+      pieSliceText: 'percentage',
+      pieSliceTextStyle: {
+        fontSize: 14,
+        bold: true
+      },
+      legend: {
+        position: 'bottom',
+        textStyle: { fontSize: 14 }
+      },
+      chartArea: {
+        width: '100%',
+        height: '80%'
+      }
+    };
+
+    const chart = new google.visualization.PieChart(document.getElementById('myChart'));
+    chart.draw(data, options);
+  }
 </script>
 
 </body>

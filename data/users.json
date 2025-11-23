@@ -9,7 +9,6 @@
     "competition_participant": true,
     "email_verified": true,
     "verification_token": ""
-
   },
   {
     "username": "Lemoni_x",
@@ -130,6 +129,17 @@
     "is_admin": false,
     "competition_participant": false,
     "email_verified": false,
+    "verification_token": ""
+  },
+  {
+    "username": "p.k",
+    "password": "qwerty123",
+    "name": "Владислав",
+    "surname": "Владислав",
+    "email": "vladpukij@gmail.com",
+    "is_admin": true,
+    "competition_participant": false,
+    "email_verified": true,
     "verification_token": ""
   }
 ]

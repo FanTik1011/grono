@@ -6,6 +6,12 @@ import os
 from flask import send_file
 import zipfile
 from flask import Flask, send_from_directory
+import smtplib
+import ssl
+import secrets
+from email.mime.text import MIMEText
+from email.mime.multipart import MIMEMultipart
+
 
 
 app = Flask(__name__)
@@ -184,12 +190,20 @@ def login():
     if request.method == 'POST':
         username = request.form['username']
         password = request.form['password']
+
         users = load_users()
-        for user in users:
-            if user['username'] == username and user['password'] == password:
-                session['username'] = username
+
+        for u in users:
+            if u["username"] == username and u["password"] == password:
+                if not u["email_verified"]:
+                    error = "Підтвердіть Email, щоб увійти!"
+                    return render_template("login.html", error=error)
+
+                session['user'] = username
                 return redirect(url_for('profile'))
-        error = 'Невірний логін або пароль'
+
+        error = "Невірний логін або пароль."
+
     return render_template('login.html', error=error)
 
 @app.route('/logout')
@@ -210,27 +224,36 @@ def register():
 
         users = load_users()
 
+        # Перевірка логіну
         if any(u['username'] == username for u in users):
             error = 'Такий користувач вже існує.'
-        else:
-            # Створюємо нового користувача
-            users.append({
-                'username': username,
-                'password': password,
-                'name': name,
-                'surname': surname,
-                'email': email,
-                'is_admin': False
-            })
-            save_users(users)
+            return render_template('register.html', error=error)
 
-            # 🔥 АВТОМАТИЧНИЙ ВХІД
-            session['user'] = username
+        # Створюємо токен підтвердження
+        token = secrets.token_hex(24)
 
-            # Переходимо в профіль
-            return redirect(url_for('profile'))
+        # Додаємо нового юзера
+        users.append({
+            'username': username,
+            'password': password,
+            'name': name,
+            'surname': surname,
+            'email': email,
+            'is_admin': False,
+            'competition_participant': False,
+            'email_verified': False,
+            'verification_token': token
+        })
+
+        save_users(users)
+
+        # Відправка листа
+        send_verification_email(email, username, token)
+
+        return render_template("verify_info.html", email=email)
 
     return render_template('register.html', error=error)
+
 
 
 
@@ -461,6 +484,59 @@ def delete_photo(photo_id):
 
     return redirect(url_for("photo_contest"))
 
+EMAIL_ADDRESS = "volodakotlarov191@gmail.com"
+EMAIL_PASSWORD = "rgsy mczs hatd vqjl"
+
+def send_verification_email(to_email, username, token):
+    verify_link = f"https://grono.world/verify/{token}"
+
+    message = MIMEMultipart("alternative")
+    message["Subject"] = "Підтвердження Email — Ліцей Гроно"
+    message["From"] = EMAIL_ADDRESS
+    message["To"] = to_email
+
+    html = f"""
+    <html>
+      <body>
+        <h2 style="color:#4a148c;">Підтвердьте ваш Email</h2>
+        <p>Привіт, <b>{username}</b>!</p>
+        <p>Натисніть кнопку нижче, щоб активувати акаунт:</p>
+
+        <a href="{verify_link}"
+        style="display:inline-block;padding:12px 25px;background:#6a1b9a;color:white;
+               border-radius:10px;text-decoration:none;font-size:16px;">
+          Підтвердити Email
+        </a>
+
+        <p>Якщо це були не ви — просто ігноруйте лист.</p>
+      </body>
+    </html>
+    """
+
+    message.attach(MIMEText(html, "html"))
+
+    context = ssl.create_default_context()
+    with smtplib.SMTP_SSL("smtp.gmail.com", 465, context=context) as server:
+        server.login(EMAIL_ADDRESS, EMAIL_PASSWORD)
+        server.sendmail(EMAIL_ADDRESS, to_email, message.as_string())
+@app.route('/verify/<token>')
+def verify_email(token):
+    users = load_users()
+    found = False
+
+    for user in users:
+        if user.get("verification_token") == token:
+            user["email_verified"] = True
+            user["verification_token"] = ""
+            found = True
+            break
+
+    save_users(users)
+
+    if found:
+        return "<h2>Email підтверджено! Тепер ви можете увійти.</h2>"
+    else:
+        return "<h2>Недійсний або використаний токен.</h2>"
 
 
 

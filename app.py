@@ -533,12 +533,14 @@ def verify_email(token):
 
     save_users(users)
 
+    # Якщо токен знайдено → перекидаємо в профіль
     if found_user:
-        # автоматичний вхід
         session["user"] = found_user["username"]
-        return redirect(url_for("profile"))
+        return redirect(url_for('profile'))
 
-    return "<h2>Недійсний або використаний токен.</h2>"
+    # Якщо токен неправильний
+    return render_template("invalid_token.html")
+
 
 
 

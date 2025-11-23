@@ -87,20 +87,15 @@ def news():
 
 @app.route('/profile')
 def profile():
-    # Перевіряємо, чи користувач увійшов
     if 'username' not in session:
         return redirect(url_for('login'))
 
     users = load_users()
-
-    # Знаходимо поточного користувача
     current_user = next((u for u in users if u['username'] == session['username']), None)
 
-    # Якщо користувача немає в базі — на вихід
     if not current_user:
         return redirect(url_for('logout'))
 
-    # Якщо користувач — адмін, показуємо список усіх юзерів
     users_data = users if current_user.get('is_admin', False) else []
 
     return render_template(
@@ -112,6 +107,7 @@ def profile():
         is_admin=current_user.get('is_admin', False),
         users_data=users_data
     )
+
 
 @app.route('/users-database')
 def users_database():
@@ -202,17 +198,17 @@ def login():
         for u in users:
             if u["username"] == username and u["password"] == password:
 
-                # ❗ Якщо email не підтверджено — ведемо на verify_info.html
                 if not u.get("email_verified", False):
-                    return render_template("verify_info.html", email=u["email"])
+                    error = "Підтвердіть Email, щоб увійти!"
+                    return render_template("login.html", error=error)
 
-                # Все ок → вхід
-                session['user'] = username
+                session['username'] = username
                 return redirect(url_for('profile'))
 
         error = "Невірний логін або пароль."
 
     return render_template('login.html', error=error)
+
 
 
 @app.route('/logout')

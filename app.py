@@ -522,21 +522,24 @@ def send_verification_email(to_email, username, token):
 @app.route('/verify/<token>')
 def verify_email(token):
     users = load_users()
-    found = False
+    found_user = None
 
     for user in users:
         if user.get("verification_token") == token:
             user["email_verified"] = True
             user["verification_token"] = ""
-            found = True
+            found_user = user
             break
 
     save_users(users)
 
-    if found:
-        return "<h2>Email підтверджено! Тепер ви можете увійти.</h2>"
-    else:
-        return "<h2>Недійсний або використаний токен.</h2>"
+    if found_user:
+        # автоматичний вхід
+        session["user"] = found_user["username"]
+        return redirect(url_for("profile"))
+
+    return "<h2>Недійсний або використаний токен.</h2>"
+
 
 
 

@@ -39,6 +39,27 @@
             margin-bottom: 25px;
         }
     </style>
+    <style>
+.btn-gradient-blue {
+    background: linear-gradient(135deg, #4c7fff, #6eb6ff);
+    border: none;
+    color: white;
+    font-weight: 600;
+}
+.btn-gradient-blue:hover {
+    background: linear-gradient(135deg, #3a6fee, #57a8ff);
+}
+
+.btn-gradient-green {
+    background: linear-gradient(135deg, #35ce79, #49e68a);
+    border: none;
+    color: white;
+    font-weight: 600;
+}
+.btn-gradient-green:hover {
+    background: linear-gradient(135deg, #2ebd6e, #3cd97f);
+}
+</style>
 </head>
 
 <body>
@@ -116,16 +137,35 @@
     </div>
 
     <!-- Як подати фото -->
-    <div class="section-card">
-        <h3 class="fw-bold mb-3">📌 Як подати фотографію?</h3>
-        <ol class="fs-5">
-            <li>Увійди або зареєструйся.</li>
-            <li>Перейди у вкладку “Фотозмагання”.</li>
-            <li>Завантаж свою фотографію.</li>
-            <li>Дочекайся модерації.</li>
-            <li>Змагайся за лайки!</li>
-        </ol>
+<!-- Як подати фото -->
+<div class="section-card">
+    <h3 class="fw-bold mb-3">📌 Як подати фотографію?</h3>
+
+    <ol class="fs-5 mb-4">
+        <li>Увійди або зареєструйся.</li>
+        <li>Перейди у вкладку <strong>“Фотозмагання”</strong>.</li>
+        <li>Завантаж свою фотографію.</li>
+        <li>Дочекайся модерації.</li>
+        <li>Змагайся за лайки!</li>
+    </ol>
+
+    <!-- Кнопки -->
+    <div class="d-flex flex-column flex-md-row gap-3 mt-3">
+
+        <!-- Увійти / Зареєструватися -->
+        <a href="{{ url_for('login') }}" class="btn btn-primary btn-lg w-100 shadow"
+           style="border-radius: 15px; font-weight: 600;">
+            🔑 Увійти / Зареєструватися
+        </a>
+
+        <!-- Перейти до фотозмагання -->
+        <a href="{{ url_for('photo_contest') }}" class="btn btn-success btn-lg w-100 shadow"
+           style="border-radius: 15px; font-weight: 600;">
+            📸 Перейти до фотозмагання
+        </a>
+
     </div>
+</div>
 
   <!-- Кнопка -->
 <div class="section-card text-center">

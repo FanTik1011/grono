@@ -87,16 +87,20 @@ def news():
 
 @app.route('/profile')
 def profile():
+    # Перевіряємо, чи користувач увійшов
     if 'username' not in session:
         return redirect(url_for('login'))
 
     users = load_users()
+
+    # Знаходимо поточного користувача
     current_user = next((u for u in users if u['username'] == session['username']), None)
 
+    # Якщо користувача немає в базі — на вихід
     if not current_user:
         return redirect(url_for('logout'))
 
-    # Якщо адмін — передаємо всіх користувачів
+    # Якщо користувач — адмін, показуємо список усіх юзерів
     users_data = users if current_user.get('is_admin', False) else []
 
     return render_template(
@@ -108,6 +112,7 @@ def profile():
         is_admin=current_user.get('is_admin', False),
         users_data=users_data
     )
+
 @app.route('/users-database')
 def users_database():
     if 'username' not in session:

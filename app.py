@@ -187,6 +187,7 @@ def download_uploads():
 @app.route('/login', methods=['GET', 'POST'])
 def login():
     error = None
+
     if request.method == 'POST':
         username = request.form['username']
         password = request.form['password']
@@ -195,16 +196,19 @@ def login():
 
         for u in users:
             if u["username"] == username and u["password"] == password:
-                if not u["email_verified"]:
-                    error = "Підтвердіть Email, щоб увійти!"
-                    return render_template("login.html", error=error)
 
+                # ❗ Якщо email не підтверджено — ведемо на verify_info.html
+                if not u.get("email_verified", False):
+                    return render_template("verify_info.html", email=u["email"])
+
+                # Все ок → вхід
                 session['user'] = username
                 return redirect(url_for('profile'))
 
         error = "Невірний логін або пароль."
 
     return render_template('login.html', error=error)
+
 
 @app.route('/logout')
 def logout():

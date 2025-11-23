@@ -274,8 +274,21 @@
             </form>
         </div>
         {% else %}
-        <div class="alert alert-warning mt-4" data-aos="fade-up">
-            ❗ Ви не учасник конкурсу. Можете переглядати та лайкати фото.
+                <div class="alert alert-warning mt-4 d-flex justify-content-between align-items-center" 
+            data-aos="fade-up" 
+            style="border-radius: 15px; padding: 18px; font-size: 1.1rem;">
+            
+            <div>
+                ❗ Ви не учасник конкурсу.  
+                Можете переглядати та лайкати фото.  
+                Щоб стати учасником — візьміть участь у фотозмаганні.
+            </div>
+
+            <a href="{{ url_for('competition') }}" 
+            class="btn btn-warning fw-bold"
+            style="border-radius: 12px; white-space: nowrap;">
+                ➜ Перейти
+            </a>
         </div>
         {% endif %}
 

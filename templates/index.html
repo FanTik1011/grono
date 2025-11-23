@@ -10,39 +10,34 @@
 
   <!-- SEO -->
   <title>Шкільне самоврядування "Гроно" – Ліцей "Гроно"</title>
-  <meta name="description" content="Офіційний сайт шкільного самоврядування Ліцею 'Гроно'. Новини, події, фотозмагання, команда, ініціативи та життя учнів нашої школи.">
-  <meta name="keywords" content="ліцей Гроно, самоврядування Гроно, школа Гроно, учнівське самоврядування, новини школи, ЛМР, Гроно Львів">
+  <meta name="description" content="Офіційний сайт шкільного самоврядування Ліцею 'Гроно'. Новини, події, фотозмагання, команда, ініціативи та життя учнів.">
+  <meta name="keywords" content="ліцей Гроно, самоврядування Гроно, школа, учнівське самоврядування, новини школи, ЛМР, Гроно Львів">
 
-  <!-- OpenGraph (Google + соцмережі) -->
+  <!-- OpenGraph -->
   <meta property="og:title" content="Шкільне самоврядування Ліцею 'Гроно'">
   <meta property="og:description" content="Новини, події, ініціативи та життя Ліцею 'Гроно'.">
   <meta property="og:type" content="website">
-  <meta property="og:url" content="https://grono-618921e60154.herokuapp.com">
-  <meta property="og:image" content="https://grono-618921e60154.herokuapp.com/static/img/preview.png">
+  <meta property="og:url" content="https://www.grono.icu">
+  <meta property="og:image" content="/static/img/preview.png">
   <meta name="robots" content="index, follow">
 
-
-  <!-- Favicon -->
   <link rel="icon" href="{{ url_for('static', filename='favicon.ico') }}" type="image/x-icon">
 
-  <!-- CSS libraries -->
+  <!-- CSS -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"/>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css"/>
   <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}"/>
 
-  <!-- Mobile fixes -->
   <style>
     @media (max-width: 576px) {
-      .hero h1 { font-size: 1.8rem; text-align: center; }
-      .hero p { font-size: 1rem; text-align: center; }
+      .hero h1 { font-size: 1.8rem; }
+      .hero p { font-size: 1rem; }
       .btn-hero { width: 100%; }
     }
   </style>
 </head>
 
-
-</head>
 <body>
 
   <!-- Прелоадер -->
@@ -53,7 +48,7 @@
     </div>
   </div>
 
-  <!-- Навігація -->
+  <!-- Навбар -->
   <nav class="navbar navbar-expand-lg glass-navbar fixed-top">
     <div class="container">
       <a class="navbar-brand fw-bold" href="{{ url_for('index') }}">
@@ -66,8 +61,9 @@
 
       <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav ms-auto">
+
+          <li class="nav-item"><a class="nav-link" href="{{ url_for('competition') }}">Фотозмагання</a></li>
           <li class="nav-item"><a class="nav-link" href="{{ url_for('news') }}">Новини</a></li>
-          <li class="nav-item"><a class="nav-link" href="{{ url_for('competition') }}">Інформація про фотозмагання</a></li>
           <li class="nav-item"><a class="nav-link" href="{{ url_for('team') }}">Наша команда</a></li>
 
           {% if session.username %}
@@ -77,6 +73,7 @@
             <li class="nav-item"><a class="nav-link" href="{{ url_for('login') }}">Увійти</a></li>
             <li class="nav-item"><a class="nav-link" href="{{ url_for('register') }}">Реєстрація</a></li>
           {% endif %}
+
         </ul>
       </div>
     </div>
@@ -86,21 +83,13 @@
   <header class="hero">
     <div class="container" data-aos="fade-up">
       <h1>Вітаємо на сайті самоврядування!</h1>
-      <p>Тут ви знайдете найсвіжіші новини, події та ініціативи нашої шкільної спільноти.</p>
-      <a href="{{ url_for('news') }}" class="btn btn-hero mt-3 shadow">Переглянути новини</a>
+      <p>Новини, конкурси, команда та життя нашого ліцею.</p>
+      <a href="{{ url_for('competition') }}" class="btn btn-hero mt-3 shadow">📸 Переглянути фотозмагання</a>
     </div>
   </header>
 
-  <!-- Новини -->
-  <section class="py-5">
-    <div class="container">
-      <h2 class="section-title" data-aos="fade-right">Останні новини</h2>
-      <div id="news-container" class="row g-4">
-        <!-- Новини вставляє news.js -->
-      </div>
-    </div>
-  </section>
- <!-- ФОТОЗМАГАННЯ – КОНТРАСТНИЙ БЛОК -->
+
+  <!-- 📸 ФОТОЗМАГАННЯ — ТЕПЕР ПЕРШІ -->
 <section class="contest-highlight-section py-5">
   <div class="container">
 
@@ -111,8 +100,8 @@
       <p class="contest-highlight-text">
         Візьми участь у яскравому фотоконкурсі!  
         Усього <strong>50 гривень</strong> за участь.  
-        <strong>40% виграшний фонд</strong> → переможцю 💰  
-        <strong>60%</strong> → на підтримку <strong>ЗСУ</strong> 🇺🇦
+        <strong>40% — виграшний фонд</strong> 💰  
+        <strong>60% — на ЗСУ</strong> 🇺🇦
       </p>
 
       <a href="{{ url_for('photo_contest') }}" class="contest-highlight-btn">
@@ -125,14 +114,12 @@
 </section>
 
 <style>
-/* Яскравий контрастний фон секції */
 .contest-highlight-section {
   background: radial-gradient(circle at top, #003b8a, #001e47 70%);
   padding-top: 80px;
   padding-bottom: 90px;
 }
 
-/* Глянцева картка */
 .contest-highlight-card {
   background: rgba(255, 255, 255, 0.08);
   border: 2px solid rgba(255, 255, 255, 0.12);
@@ -144,30 +131,21 @@
   box-shadow: 0 8px 40px rgba(0, 0, 0, 0.55);
   transition: 0.35s ease;
 }
-
 .contest-highlight-card:hover {
   transform: translateY(-6px);
-  box-shadow: 0 14px 50px rgba(0, 0, 0, 0.7);
 }
 
-/* Заголовок */
 .contest-highlight-title {
   font-size: 2.4rem;
   font-weight: 800;
-  letter-spacing: 1px;
   margin-bottom: 15px;
-  color: #ffffff;
 }
 
-/* Текст */
 .contest-highlight-text {
   font-size: 1.25rem;
-  line-height: 1.6;
-  color: #e7eaf5;
   margin-bottom: 35px;
 }
 
-/* Кнопка */
 .contest-highlight-btn {
   display: inline-block;
   padding: 14px 38px;
@@ -179,26 +157,23 @@
 
   background: linear-gradient(135deg, #00a2ff, #005eff);
   border: 1px solid rgba(255, 255, 255, 0.3);
-
-  box-shadow: 0 6px 20px rgba(0, 136, 255, 0.45);
   transition: 0.3s ease;
 }
-
 .contest-highlight-btn:hover {
   background: linear-gradient(135deg, #ffd000, #ff8b00);
-  color: #ffffff;
   transform: translateY(-3px);
-  box-shadow: 0 8px 30px rgba(255, 165, 0, 0.55);
 }
 </style>
 
 
 
-
-
-  <script src="{{ url_for('static', filename='js/news.js') }}"></script>
-
-  
+  <!-- 📰 Новини -->
+  <section class="py-5">
+    <div class="container">
+      <h2 class="section-title" data-aos="fade-right">Останні новини</h2>
+      <div id="news-container" class="row g-4"></div>
+    </div>
+  </section>
 
 
   <!-- Про нас -->
@@ -207,7 +182,7 @@
       <div class="glass-card" id="about-card" data-aos="zoom-in">
         <h1>Про самоврядування</h1>
         <p class="mt-3">
-          Самоврядування Ліцею "Гроно" — це команда активних учнів, які організовують заходи, турніри, конкурси та представляють інтереси школярів.
+          Самоврядування Ліцею "Гроно" — команда активних учнів, які організовують заходи, турніри, конкурси та представляють інтереси школярів.
         </p>
 
         <h2 class="mt-4">Слідкуй за нами</h2>
@@ -236,33 +211,29 @@
   <!-- Scripts -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
-  <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
+
+  <script src="{{ url_for('static', filename='js/news.js') }}"></script>
 
   <script>
     AOS.init();
 
-    // Живий годинник
     setInterval(() => {
       const now = new Date();
       document.getElementById("live-time").textContent = now.toLocaleTimeString("uk-UA");
     }, 1000);
 
-    // Кнопка наверх
     const scrollBtn = document.getElementById("scroll-to-top");
     scrollBtn.addEventListener("click", () => window.scrollTo({ top: 0, behavior: "smooth" }));
-
     window.addEventListener("scroll", () => {
       scrollBtn.style.opacity = window.scrollY > 300 ? 1 : 0;
     });
 
-    // Прелоадер
     window.addEventListener("load", () => {
       const preloader = document.getElementById("preloader");
       setTimeout(() => preloader.classList.add("fade-out"), 200);
       setTimeout(() => preloader.style.display = "none", 1400);
     });
   </script>
-
 
 </body>
 </html>

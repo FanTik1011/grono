@@ -17,7 +17,10 @@
     "name": "Владислав",
     "surname": "Рибак",
     "email": "1two3four45@gmail.com",
-    "is_admin": true
+    "is_admin": true,
+    "competition_participant": false,
+    "email_verified": true,
+    "verification_token": ""
   },
   {
     "username": "goroskodarina3@gmail.com",
@@ -25,7 +28,10 @@
     "name": "Дарина ",
     "surname": "Горошко",
     "email": "goroskodarina13@gmail.com",
-    "is_admin": true
+    "is_admin": true,
+    "competition_participant": false,
+    "email_verified": true,
+    "verification_token": ""
   },
   {
     "username": "julichka.ryb",
@@ -33,7 +39,10 @@
     "name": "Юлія ",
     "surname": "Рибак ",
     "email": "rjulia0710@gmail.com",
-    "is_admin": true
+    "is_admin": true,
+    "competition_participant": false,
+    "email_verified": true,
+    "verification_token": ""
   },
   {
     "username": "macwus.q",
@@ -41,7 +50,10 @@
     "name": "Святослав",
     "surname": "Бакай",
     "email": "s.bakaj@icloud.com",
-    "is_admin": true
+    "is_admin": true,
+    "competition_participant": false,
+    "email_verified": true,
+    "verification_token": ""
   },
   {
     "username": "stasik",
@@ -49,7 +61,10 @@
     "name": "Станіслав",
     "surname": "Кітраль",
     "email": "xnxmdmdkashshsjhsn@gmail.com",
-    "is_admin": false
+    "is_admin": false,
+    "competition_participant": false,
+    "email_verified": true,
+    "verification_token": ""
   },
   {
     "username": "yurxxw",
@@ -57,7 +72,10 @@
     "name": "Юрій",
     "surname": "Кметь",
     "email": "yurxxw@gmail.com",
-    "is_admin": false
+    "is_admin": false,
+    "competition_participant": false,
+    "email_verified": true,
+    "verification_token": ""
   },
   {
     "username": "vikiii.vx",
@@ -65,7 +83,10 @@
     "name": "вікторія ",
     "surname": "лучків",
     "email": "luchkiviktoriia@ukr.net",
-    "is_admin": false
+    "is_admin": false,
+    "competition_participant": false,
+    "email_verified": true,
+    "verification_token": ""
   },
   {
     "username": "vikii.vx",
@@ -73,7 +94,10 @@
     "name": "лучків",
     "surname": "вікторія ",
     "email": "luchkiviktoriia@ukr.net",
-    "is_admin": false
+    "is_admin": false,
+    "competition_participant": false,
+    "email_verified": true,
+    "verification_token": ""
   },
   {
     "username": "ViktoriaLuchkiv",
@@ -81,7 +105,10 @@
     "name": "Лучків",
     "surname": "Вікторія",
     "email": "luchkiviktoriia@ukr.net",
-    "is_admin": false
+    "is_admin": false,
+    "competition_participant": false,
+    "email_verified": true,
+    "verification_token": ""
   },
   {
     "username": "viikaa.wx",
@@ -89,7 +116,10 @@
     "name": "Вікторія",
     "surname": "Щука",
     "email": "viktoriia.shchuka@gmail.com",
-    "is_admin": true
+    "is_admin": true,
+    "competition_participant": false,
+    "email_verified": true,
+    "verification_token": ""
   },
   {
     "username": "Marta123406&",
@@ -97,6 +127,9 @@
     "name": "Марта",
     "surname": "Канцір",
     "email": "kancirmarta@gmail.com",
-    "is_admin": false
+    "is_admin": false,
+    "competition_participant": false,
+    "email_verified": false,
+    "verification_token": ""
   }
 ]

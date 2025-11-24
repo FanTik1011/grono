@@ -360,13 +360,13 @@
                     <span class="place-badge bronze">🥉 3 місце</span>
                 {% endif %}
 
-                <!-- Аватар + ім'я -->
+                            <!-- Аватар + ім'я -->
                 <div class="d-flex align-items-center mt-3">
 
-                    {% if p.avatar %}
-                        <!-- Є аватар -->
-                        <img src="{{ url_for('static', filename='avatars/' + p.avatar) }}"
-                             class="avatar-photo" alt="avatar">
+                    {% if p.avatar and p.avatar != "" %}
+                        <!-- Є аватар, вже повний шлях -->
+                        <img src="{{ p.avatar }}"
+                            class="avatar-photo" alt="avatar">
                     {% else %}
                         <!-- Нема — кольоровий круг з першою буквою -->
                         <div class="user-avatar">
@@ -380,6 +380,7 @@
                     </div>
 
                 </div>
+
 
                 <!-- Лайки -->
                 <div class="d-flex justify-content-between align-items-center mt-3">

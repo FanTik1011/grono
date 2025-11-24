@@ -9,7 +9,7 @@
     "competition_participant": true,
     "email_verified": true,
     "verification_token": "",
-    "avatar":""
+    "avatar": ""
   },
   {
     "username": "Lemoni_x",
@@ -136,7 +136,7 @@
     "username": "p.k",
     "password": "qwerty123",
     "name": "Владислав",
-    "surname": "Владислав",
+    "surname": "Олегович ",
     "email": "vladpukij@gmail.com",
     "is_admin": true,
     "competition_participant": false,

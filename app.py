@@ -493,7 +493,7 @@ EMAIL_ADDRESS = "volodakotlarov191@gmail.com"
 EMAIL_PASSWORD = "rgsy mczs hatd vqjl"
 
 def send_verification_email(to_email, username, token):
-    verify_link = f"https://www.grono.icu/verify/{token}"
+    verify_link = f"https://grono.world/verify/{token}"
 
     message = MIMEMultipart("alternative")
     message["Subject"] = "Підтвердження Email — Ліцей Гроно"

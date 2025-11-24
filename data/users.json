@@ -141,5 +141,27 @@
     "competition_participant": false,
     "email_verified": true,
     "verification_token": ""
+  },
+  {
+    "username": "VolodaNoob",
+    "password": "26082010Uu",
+    "name": "Володимир ",
+    "surname": "Іванько",
+    "email": "dar260822@gmail.com",
+    "is_admin": false,
+    "competition_participant": false,
+    "email_verified": false,
+    "verification_token": "71322206b32dca9720d0d2de9b130b4c870e53284cb83c86"
+  },
+  {
+    "username": "test",
+    "password": "test",
+    "name": "test",
+    "surname": "test",
+    "email": "vovkot39@gmail.com",
+    "is_admin": false,
+    "competition_participant": false,
+    "email_verified": false,
+    "verification_token": "a363765b7f6f7a6d2f62adb39e01a096828e5225dc894e75"
   }
 ]

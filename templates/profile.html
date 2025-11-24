@@ -97,7 +97,7 @@
 
       <h3 class="fw-bold mb-1">{{ user.username }}</h3>
 
-      {% if user.role == 'admin' %}
+      {% if is_admin %}
       <span class="badge bg-purple text-white">Адміністратор</span>
       {% else %}
       <span class="badge bg-secondary">Користувач</span>
@@ -132,7 +132,7 @@
         На головну
       </a>
 
-      {% if user.role == 'admin' %}
+      {% if is_admin %}
       <a href="{{ url_for('add_news') }}" class="btn btn-success btn-custom">
         Додати новину
       </a>

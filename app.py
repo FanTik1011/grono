@@ -89,28 +89,36 @@ def team():
 def news():
     return render_template('news.html', news=load_news(), is_admin=is_admin())
 
-@app.route('/profile')
+@app.route('/profile', methods=['GET', 'POST'])
 def profile():
     if 'username' not in session:
         return redirect(url_for('login'))
 
     users = load_users()
-    current_user = next((u for u in users if u['username'] == session['username']), None)
+    user = next((u for u in users if u['username'] == session['username']), None)
 
-    if not current_user:
-        return redirect(url_for('logout'))
+    if request.method == 'POST':
 
-    users_data = users if current_user.get('is_admin', False) else []
+        # Змінюємо ім’я
+        user['name'] = request.form['name']
+        user['surname'] = request.form['surname']
 
-    return render_template(
-        'profile.html',
-        username=current_user['username'],
-        name=current_user['name'],
-        surname=current_user['surname'],
-        email=current_user['email'],
-        is_admin=current_user.get('is_admin', False),
-        users_data=users_data
-    )
+        # Завантаження аватарки
+        file = request.files.get('avatar')
+        if file and file.filename != "":
+            filename = secure_filename(file.filename)
+            avatar_path = os.path.join('static', 'avatars', filename)
+
+            # Створимо папку якщо нема
+            os.makedirs(os.path.join('static', 'avatars'), exist_ok=True)
+
+            file.save(avatar_path)
+            user['avatar'] = '/static/avatars/' + filename
+
+        save_users(users)
+
+    return render_template("profile.html", user=user)
+
 
 
 @app.route('/users-database')

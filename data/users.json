@@ -8,7 +8,8 @@
     "is_admin": true,
     "competition_participant": true,
     "email_verified": true,
-    "verification_token": ""
+    "verification_token": "",
+    "avatar":""
   },
   {
     "username": "Lemoni_x",

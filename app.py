@@ -11,6 +11,8 @@ import ssl
 import secrets
 from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
+from github import Github
+from dotenv import load_dotenv
 
 
 
@@ -26,6 +28,46 @@ USERS_FILE = 'data/users.json'
 os.makedirs(UPLOAD_FOLDER, exist_ok=True)
 os.makedirs('data', exist_ok=True)
 
+load_dotenv()
+
+import base64
+
+def push_to_github(file_path, repo_path):
+    """
+    file_path – локальний шлях (data/news.json)
+    repo_path – шлях у GitHub репо (data/news.json)
+    """
+
+    token = os.getenv("GITHUB_TOKEN")
+    repo_name = os.getenv("GITHUB_REPO")
+
+    if not token or not repo_name:
+        print("GitHub token або репозиторій не вказано")
+        return
+
+    g = Github(token)
+    repo = g.get_repo(repo_name)
+
+    with open(file_path, "rb") as f:
+        content = f.read()
+
+    try:
+        file = repo.get_contents(repo_path)
+        repo.update_file(
+            path=repo_path,
+            message="Auto update JSON",
+            content=content,
+            sha=file.sha
+        )
+        print(f"Updated {repo_path} на GitHub")
+
+    except:
+        repo.create_file(
+            path=repo_path,
+            message="Auto create JSON",
+            content=content
+        )
+        print(f"Created {repo_path} на GitHub")
 
 # ----------------- КОРИСТУВАЧІ -----------------
 
@@ -546,6 +588,23 @@ def verify_email(token):
     # Якщо токен неправильний
     return render_template("invalid_token.html")
 
+def save_users(users):
+    with open(USERS_FILE, 'w', encoding='utf-8') as f:
+        json.dump(users, f, ensure_ascii=False, indent=2)
+
+    push_to_github(USERS_FILE, "data/users.json")
+
+def save_news(news):
+    with open(DATA_FILE, 'w', encoding='utf-8') as f:
+        json.dump(news, f, ensure_ascii=False, indent=2)
+
+    push_to_github(DATA_FILE, "data/news.json")
+
+def save_contest_photos(data):
+    with open(CONTEST_DATA, "w", encoding="utf-8") as f:
+        json.dump(data, f, ensure_ascii=False, indent=2)
+
+    push_to_github(CONTEST_DATA, "data/contest_photos.json")
 
 
 

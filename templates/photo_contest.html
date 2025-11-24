@@ -105,6 +105,42 @@
             border-radius: 20px;
             margin-top: 15px;
         }
+        /* ---- USER AVATAR ---- */
+        .user-avatar {
+            width: 55px;
+            height: 55px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #6c63ff, #a471ff);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            font-weight: 700;
+            font-size: 1.4rem;
+            box-shadow: 0 5px 18px rgba(0,0,0,0.15);
+        }
+
+        /* ---- GALLERY BADGES ---- */
+        .place-badge {
+            font-size: 1.4rem;
+            display: inline-block;
+            padding: 6px 12px;
+            border-radius: 12px;
+            font-weight: 700;
+        }
+
+        .place-badge.gold {
+            background: #ffe680;
+        }
+
+        .place-badge.silver {
+            background: #e6e6e6;
+        }
+
+        .place-badge.bronze {
+            background: #ffd2a1;
+        }
+
     </style>
        <style>
         :root {
@@ -293,50 +329,64 @@
         {% endif %}
 
         <!-- GALLERY -->
-        <h2 class="fw-bold mt-5 mb-3" data-aos="fade-up">🏆 Учасники</h2>
+        <!-- GALLERY -->
+<h2 class="fw-bold mt-5 mb-4 text-center" data-aos="fade-up">🏆 Учасники конкурсу</h2>
 
-        <div class="row">
-            {% for p in photos %}
-            <div class="col-md-4 mb-4" data-aos="zoom-in" data-aos-delay="{{ loop.index * 80 }}">
-                <div class="photo-card">
+<div class="row g-4">
+    {% for p in photos %}
+    <div class="col-md-4" data-aos="zoom-in" data-aos-delay="{{ loop.index * 70 }}">
+        <div class="photo-card">
 
-                    <img src="{{ url_for('static', filename='contest_photos/' + p.filename) }}" class="photo-img">
+            <!-- Фото роботи -->
+            <img src="{{ url_for('static', filename='contest_photos/' + p.filename) }}" class="photo-img">
 
-                    <div class="p-3">
+            <div class="p-3">
 
-                        {% if loop.index == 1 %}
-                            <span class="place-badge">🥇 1 місце</span>
-                        {% elif loop.index == 2 %}
-                            <span class="place-badge">🥈 2 місце</span>
-                        {% elif loop.index == 3 %}
-                            <span class="place-badge">🥉 3 місце</span>
-                        {% endif %}
+                <!-- Місця -->
+                {% if loop.index == 1 %}
+                    <span class="place-badge gold">🥇 1 місце</span>
+                {% elif loop.index == 2 %}
+                    <span class="place-badge silver">🥈 2 місце</span>
+                {% elif loop.index == 3 %}
+                    <span class="place-badge bronze">🥉 3 місце</span>
+                {% endif %}
 
-                        <h5 class="fw-bold mt-2 mb-0">{{ p.full_name }}</h5>
-                        <small class="text-secondary">@{{ p.username }}</small>
-
-                        <div class="d-flex justify-content-between align-items-center mt-3">
-                            <span class="fs-5">❤️ {{ p.likes | length }}</span>
-
-                            <a href="{{ url_for('like', photo_id=p.id) }}" class="like-btn">
-                                <i class="bi bi-heart-fill"></i> Лайк
-                            </a>
-                        </div>
-
-                        {% if user.is_admin or user.username == p.username %}
-                        <div class="text-end mt-2">
-                            <a href="{{ url_for('delete_photo', photo_id=p.id) }}" class="text-danger">
-                                <i class="bi bi-trash"></i> Видалити
-                            </a>
-                        </div>
-                        {% endif %}
+                <!-- Аватар + ім'я -->
+                <div class="d-flex align-items-center mt-3">
+                    <div class="user-avatar">
+                        {{ p.full_name[0] }}
                     </div>
 
+                    <div class="ms-3">
+                        <h5 class="fw-bold mb-0">{{ p.full_name }}</h5>
+                        <small class="text-secondary">@{{ p.username }}</small>
+                    </div>
                 </div>
+
+                <!-- Лайки -->
+                <div class="d-flex justify-content-between align-items-center mt-3">
+                    <span class="fs-5">❤️ {{ p.likes | length }}</span>
+
+                    <a href="{{ url_for('like', photo_id=p.id) }}" class="like-btn">
+                        <i class="bi bi-heart-fill"></i> like
+                    </a>
+                </div>
+
+                <!-- Видалення -->
+                {% if user.is_admin or user.username == p.username %}
+                <div class="text-end mt-2">
+                    <a href="{{ url_for('delete_photo', photo_id=p.id) }}" class="text-danger fw-semibold">
+                        <i class="bi bi-trash"></i> Видалити
+                    </a>
+                </div>
+                {% endif %}
             </div>
-            {% endfor %}
+
         </div>
     </div>
+    {% endfor %}
+</div>
+
       <div class="snowflakes" id="snowflakes"></div>
 
     <div class="jingle-bell" id="jingle-bell" title="Зробити снігопад!">

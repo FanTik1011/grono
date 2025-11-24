@@ -26,6 +26,9 @@ USERS_FILE = 'data/users.json'
 # Створення папок при потребі
 os.makedirs(UPLOAD_FOLDER, exist_ok=True)
 os.makedirs('data', exist_ok=True)
+@app.route('/favicon.ico')
+def favicon():
+    return send_from_directory('static', 'favicon.ico')
 
 
 # ----------------- КОРИСТУВАЧІ -----------------

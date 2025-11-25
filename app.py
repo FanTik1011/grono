@@ -104,7 +104,7 @@ def profile():
         user['surname'] = request.form['surname']
 
         file = request.files.get('avatar')
-        if file and file.filename != "":
+        if file and file.filename:
             filename = secure_filename(file.filename)
             folder = os.path.join(app.root_path, 'static', 'avatars')
             os.makedirs(folder, exist_ok=True)
@@ -112,7 +112,9 @@ def profile():
             avatar_path = os.path.join(folder, filename)
             file.save(avatar_path)
 
-            user['avatar'] = '/static/avatars/' + filename
+            # Записуємо шлях для url_for
+            user['avatar'] = 'avatars/' + filename
+
 
 
         save_users(users)

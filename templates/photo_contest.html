@@ -361,9 +361,7 @@
                 {% endif %}
 
                                 <!-- Аватар + ім'я -->
-                <div class="d-flex align-items-center mt-3">
-
-                                {% if user.avatar %}
+                                        {% if user.avatar %}
                         <img src="{{ url_for('static', filename=user.avatar) }}" class="avatar-photo">
                     {% else %}
                         <div class="user-avatar">{{ user.full_name[0] }}</div>

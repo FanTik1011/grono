@@ -31,41 +31,50 @@ body {
   transition: var(--transition);
 }
 
-/* 🌐 Глянцевий (glass) навбар */
-.glass-navbar {
-    backdrop-filter: blur(12px);
-    background: rgba(255, 255, 255, 0.08);
-    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+/* --- NAVBAR як на index --- */
+.navbar-glass {
+    position: sticky;
+    top: 0;
+    width: 100%;
+    z-index: 999;
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    background: rgba(255, 255, 255, 0.12);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.25);
+    padding: 10px 0;
+    transition: 0.3s ease-in-out;
+    box-shadow: 0 4px 25px rgba(0, 0, 0, 0.25);
 }
 
-/* Текст + посилання */
-.glass-navbar .navbar-brand,
-.glass-navbar .nav-link {
+/* Текст і лінки */
+.navbar-glass .navbar-brand,
+.navbar-glass .nav-link {
     color: #f5f5f5 !important;
     font-weight: 500;
     transition: 0.25s ease;
 }
 
 /* Hover */
-.glass-navbar .nav-link:hover {
+.navbar-glass .nav-link:hover {
     color: #ffffff !important;
-    text-shadow: 0 0 8px rgba(255,255,255,0.6);
+    text-shadow: 0 0 10px rgba(255,255,255,0.8);
 }
 
-/* Активне посилання */
-.glass-navbar .nav-link.active {
+/* Активний пункт */
+.navbar-glass .nav-link.active {
     color: #ffffff !important;
     font-weight: 600;
+    text-shadow: 0 0 10px rgba(255,255,255,0.8);
 }
 
-/* Mobile-toggler (іконка) */
-.glass-navbar .navbar-toggler {
-    border-color: rgba(255, 255, 255, 0.4);
+/* Toggler */
+.navbar-glass .navbar-toggler {
+    border-color: rgba(255, 255, 255, 0.5);
 }
-
-.glass-navbar .navbar-toggler-icon {
+.navbar-glass .navbar-toggler-icon {
     filter: invert(1);
 }
+
 
 .page-title {
   color: #eef2ff;

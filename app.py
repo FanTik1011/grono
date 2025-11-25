@@ -13,7 +13,7 @@ from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
 from PIL import Image, ImageDraw, ImageFont
 import random
-
+import traceback
 
 
 
@@ -241,88 +241,85 @@ def logout():
     session.pop('username', None)
     return redirect(url_for('index'))
 
-@app.route('/register', methods=['GET', 'POST'])
-def register():
-    error = None
-
-    if request.method == 'POST':
-        username = request.form['username']
-        password = request.form['password']
-        name = request.form['name']
-        surname = request.form['surname']
-        email = request.form['email']
-
-        users = load_users()
-
-        # Перевірка логіну
-        if any(u['username'] == username for u in users):
-            error = 'Такий користувач вже існує.'
-            return render_template('register.html', error=error)
-
-        # 🔥 Генерація аватара
-        avatar_path = generate_avatar(username)
-
-        # Створюємо токен підтвердження
-        token = secrets.token_hex(24)
-
-        # Додаємо юзера
-        users.append({
-            'username': username,
-            'password': password,
-            'name': name,
-            'surname': surname,
-            'email': email,
-            'avatar': avatar_path,
-            'is_admin': False,
-            'competition_participant': False,
-            'email_verified': False,
-            'verification_token': token
-        })
-
-        save_users(users)
-
-        # Відправка листа
-        send_verification_email(email, username, token)
-
-        return render_template("verify_info.html", email=email)
-
-    return render_template('register.html', error=error)
 
 
 def generate_avatar(username):
-    from PIL import Image, ImageDraw, ImageFont
-    import random
-    import os
-
+    # повертає шлях у форматі "static/avatars/username.png"
     size = 256
+    colors = ["#ff6b6b","#feca57","#48dbfb","#1dd1a1","#5f27cd","#54a0ff","#ff9ff3","#f368e0"]
+    bg = random.choice(colors)
 
-    colors = [
-        "#ff6b6b", "#feca57", "#48dbfb", "#1dd1a1",
-        "#5f27cd", "#54a0ff", "#ff9ff3", "#f368e0"
-    ]
-    bg_color = random.choice(colors)
+    os.makedirs(os.path.join(app.root_path, "static", "avatars"), exist_ok=True)
+    save_path = os.path.join("static", "avatars", f"{username}.png")  # зберігаємо відносний шлях у JSON
 
-    save_path = f"static/avatars/{username}.png"
-    os.makedirs("static/avatars", exist_ok=True)
-
-    img = Image.new("RGB", (size, size), bg_color)
+    img = Image.new("RGB", (size, size), bg)
     draw = ImageDraw.Draw(img)
-
-    letter = username[0].upper()
+    letter = username[0].upper() if username else "U"
 
     try:
         font = ImageFont.truetype("arial.ttf", 150)
-    except:
+    except Exception:
         font = ImageFont.load_default()
 
     w, h = draw.textsize(letter, font=font)
-    position = ((size - w) / 2, (size - h) / 2 - 20)
-
-    draw.text(position, letter, fill="white", font=font)
-    img.save(save_path)
-
+    draw.text(((size-w)/2, (size-h)/2 - 10), letter, fill="white", font=font)
+    img.save(os.path.join(app.root_path, save_path))  # зберегти з root_path
     return save_path
 
+@app.route('/register', methods=['GET', 'POST'])
+def register():
+    error = None
+    if request.method == 'POST':
+        try:
+            username = request.form['username'].strip()
+            password = request.form['password']
+            name = request.form['name']
+            surname = request.form['surname']
+            email = request.form['email']
+
+            users = load_users()  # переконайся, що ця функція повертає список
+
+            # Перевірка логіну
+            if any(u.get('username') == username for u in users):
+                error = 'Такий користувач вже існує.'
+                return render_template('register.html', error=error)
+
+            # Синхронна генерація аватару (можеш зробити async пізніше)
+            avatar_path = generate_avatar(username)
+
+            # Створюємо токен підтвердження
+            token = secrets.token_hex(24)
+
+            # Додаємо нового юзера (з avatar)
+            users.append({
+                'username': username,
+                'password': password,
+                'name': name,
+                'surname': surname,
+                'email': email,
+                'avatar': avatar_path,
+                'is_admin': False,
+                'competition_participant': False,
+                'email_verified': False,
+                'verification_token': token
+            })
+
+            save_users(users)  # тут може впасти — перевір консоль
+
+            # Відправка листа (тимчасово закоментуй, якщо підозрюєш SMTP)
+            # send_verification_email(email, username, token)
+
+            return render_template("verify_info.html", email=email)
+
+        except Exception as e:
+            # Лог в консоль і передача помилки в шаблон
+            tb = traceback.format_exc()
+            app.logger.error("Register error:\n" + tb)
+            error = f"Помилка при реєстрації: {str(e)}"
+            # Під час розробки можна показати traceback (не для продакшну)
+            return render_template('register.html', error=error, debug_trace=tb)
+
+    return render_template('register.html', error=error)
 
 
 

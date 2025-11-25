@@ -335,6 +335,21 @@ body {
   height: 45px;
   background: var(--primary);
 }
+.glass-card .card-title,
+.glass-card .card-text,
+.glass-card .card-footer {
+    color: #f5f5f5 !important;   /* світлий текст */
+}
+
+.glass-card {
+    backdrop-filter: blur(12px);
+    background: rgba(255, 255, 255, 0.08); /* стеклянний напівпрозорий */
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.glass-card .card-body {
+    color: #f5f5f5 !important;
+}
 
 
 /* -----------------------------------------

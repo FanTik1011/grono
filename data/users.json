@@ -129,7 +129,7 @@
     "email": "kancirmarta@gmail.com",
     "is_admin": false,
     "competition_participant": false,
-    "email_verified": false,
+    "email_verified": true,
     "verification_token": ""
   },
   {

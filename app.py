@@ -11,6 +11,9 @@ import ssl
 import secrets
 from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
+from PIL import Image, ImageDraw, ImageFont
+import random
+
 
 
 
@@ -250,15 +253,15 @@ def register():
 
         users = load_users()
 
-        # Перевірка логіну
         if any(u['username'] == username for u in users):
             error = 'Такий користувач вже існує.'
             return render_template('register.html', error=error)
 
-        # Створюємо токен підтвердження
         token = secrets.token_hex(24)
 
-        # Додаємо нового юзера
+        # ✨ генерація аватарки
+        avatar_path = generate_avatar(username[0], username)
+
         users.append({
             'username': username,
             'password': password,
@@ -268,17 +271,55 @@ def register():
             'is_admin': False,
             'competition_participant': False,
             'email_verified': False,
-            'verification_token': token
+            'verification_token': token,
+            'avatar': avatar_path
         })
 
         save_users(users)
-
-        # Відправка листа
         send_verification_email(email, username, token)
 
         return render_template("verify_info.html", email=email)
 
     return render_template('register.html', error=error)
+def generate_avatar(letter, username):
+    # робимо букву великою
+    letter = letter.upper()
+
+    # кольори (рандомно)
+    colors = [
+        "#F44336", "#E91E63", "#9C27B0", "#673AB7",
+        "#3F51B5", "#2196F3", "#03A9F4", "#00BCD4",
+        "#009688", "#4CAF50", "#8BC34A", "#FFC107",
+        "#FF9800", "#FF5722"
+    ]
+    bg_color = random.choice(colors)
+
+    # створюємо зображення 512x512
+    img = Image.new("RGB", (512, 512), bg_color)
+    draw = ImageDraw.Draw(img)
+
+    # шрифт
+    try:
+        font = ImageFont.truetype("arial.ttf", 250)
+    except:
+        font = ImageFont.load_default()
+
+    w, h = draw.textsize(letter, font=font)
+
+    # центр тексту
+    position = ((512 - w) / 2, (512 - h) / 2 - 40)
+
+    draw.text(position, letter, fill="white", font=font)
+
+    # шлях
+    filename = f"{username}_avatar.png"
+    path = os.path.join("static", "avatars", filename)
+
+    os.makedirs("static/avatars", exist_ok=True)
+    img.save(path)
+
+    return f"static/avatars/{filename}"
+
 
 
 

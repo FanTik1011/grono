@@ -260,10 +260,8 @@ def register():
 
         # Створюємо токен підтвердження
         token = secrets.token_hex(24)
-
-        # ✨ Генеруємо аватар
+             # 🔥 Генеруємо аватар
         avatar_path = generate_avatar(username[0], username)
-
         # Додаємо нового юзера
         users.append({
             'username': username,
@@ -274,8 +272,7 @@ def register():
             'is_admin': False,
             'competition_participant': False,
             'email_verified': False,
-            'verification_token': token,
-            'avatar': avatar_path
+            'verification_token': token
         })
 
         save_users(users)
@@ -286,41 +283,48 @@ def register():
         return render_template("verify_info.html", email=email)
 
     return render_template('register.html', error=error)
+    from PIL import Image, ImageDraw, ImageFont
+import random
+import os
 
+def generate_avatar(text, save_path):
+    # Розмір аватара
+    size = 256
 
-    return render_template('register.html', error=error)
-def generate_avatar(letter, username):
-    letter = letter.upper()
-
+    # Випадковий колір кола
     colors = [
-        "#F44336", "#E91E63", "#9C27B0", "#673AB7",
-        "#3F51B5", "#2196F3", "#03A9F4", "#00BCD4",
-        "#009688", "#4CAF50", "#8BC34A", "#FFC107",
-        "#FF9800", "#FF5722"
+        "#ff6b6b", "#feca57", "#48dbfb", "#1dd1a1",
+        "#5f27cd", "#54a0ff", "#ff9ff3", "#f368e0"
     ]
-    bg = random.choice(colors)
+    bg_color = random.choice(colors)
 
-    img = Image.new("RGB", (512, 512), bg)
+    # Створюємо зображення
+    img = Image.new("RGB", (size, size), bg_color)
     draw = ImageDraw.Draw(img)
 
+    # Текст — перша буква
+    letter = text[0].upper()
+
+    # Шрифт (вбудований)
     try:
-        font = ImageFont.truetype("arial.ttf", 250)
+        font = ImageFont.truetype("arial.ttf", 150)
     except:
         font = ImageFont.load_default()
 
+    # Розрахунок позиції тексту
     w, h = draw.textsize(letter, font=font)
-    draw.text(((512-w)/2, (512-h)/2 - 40), letter, fill="white", font=font)
+    position = ((size - w) / 2, (size - h) / 2 - 20)
 
-    # Папка
-    os.makedirs("static/avatars", exist_ok=True)
+    # Текст (білий)
+    draw.text(position, letter, fill="white", font=font)
 
-    filename = f"{username}_avatar.png"
-    path = os.path.join("static/avatars", filename)
+    # Створюємо директорію
+    os.makedirs(os.path.dirname(save_path), exist_ok=True)
 
-    img.save(path)
+    # Зберігаємо файл
+    img.save(save_path)
 
-    return f"static/avatars/{filename}"
-
+    return save_path
 
 
 

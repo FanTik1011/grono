@@ -85,16 +85,25 @@
     <form method="POST" enctype="multipart/form-data" id="profile-form">
 
       <!-- АВАТАР -->
-      <div class="avatar-wrapper">
-        <img id="avatar-preview"
-                        src="{{ user.avatar if user.avatar else '/static/img/default-avatar.png' }}">
+      <!-- АВАТАР -->
+        <div class="avatar-wrapper">
 
+            {% if user.avatar %}
+                <img id="avatar-preview"
+                    src="{{ url_for('static', filename=user.avatar) }}"
+                    alt="avatar">
+            {% else %}
+                <img id="avatar-preview"
+                    src="{{ url_for('static', filename='img/default-avatar.png') }}"
+                    alt="avatar">
+            {% endif %}
 
-        <label class="edit-avatar-btn">
-          <input type="file" name="avatar" id="avatar-input" accept="image/*" hidden>
-          <i class="bi bi-camera"></i>
-        </label>
-      </div>
+            <label class="edit-avatar-btn">
+                <input type="file" name="avatar" id="avatar-input" accept="image/*" hidden>
+                <i class="bi bi-camera"></i>
+            </label>
+        </div>
+
 
       <h3 class="fw-bold mb-1">{{ user.username }}</h3>
 

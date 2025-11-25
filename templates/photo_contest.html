@@ -12,19 +12,53 @@
 
     <style>
   
-        /* ---- GLASS NAVBAR ---- */
-        .glass-navbar {
-            backdrop-filter: blur(12px);
-            background: rgba(255,255,255,0.6);
-            border-bottom: 1px solid rgba(255,255,255,0.4);
-        }
+      .glass,
+.glass-card,
+.glass-navbar {
+  background: var(--glass-bg);
+  border: 1.5px solid var(--glass-border);
+  border-radius: var(--radius);
+  backdrop-filter: blur(20px);
+  box-shadow: 0 10px 40px rgba(0, 0, 0, .5);
+}
 
-        .glass-navbar .nav-link {
-            font-weight: 500;
-            padding-left: 12px;
-            padding-right: 12px;
-        }
+/* Hover glass glow */
+.glass:hover,
+.glass-card:hover {
+  box-shadow: 0 10px 40px rgba(0, 170, 255, 0.4);
+  transform: translateY(-6px);
+}
 
+/* -----------------------------------------
+   NAVBAR
+-----------------------------------------*/
+.glass-navbar {
+  padding: 14px 0;
+}
+
+.navbar-brand {
+  color: white !important;
+  font-size: 1.5rem;
+  font-weight: 800;
+  letter-spacing: .6px;
+  text-transform: uppercase;
+  text-shadow: 0 0 10px rgba(0, 149, 255, .6);
+}
+
+.nav-link {
+  color: #dfe7ff !important;
+  font-weight: 600;
+}
+.nav-link:hover {
+  color: var(--primary) !important;
+  text-shadow: 0 0 10px var(--primary);
+}
+
+/* Mobile nav improvements */
+@media (max-width: 992px) {
+  .navbar-brand { font-size: 1.25rem; }
+  .nav-link { font-size: 1.1rem; padding: 12px 0; }
+}
         /* ---- HERO ---- */
         .hero {
             margin-top: 115px;

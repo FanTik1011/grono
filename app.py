@@ -296,6 +296,7 @@ def generate_avatar(username):
 @app.route('/register', methods=['GET', 'POST'])
 def register():
     error = None
+
     if request.method == 'POST':
         try:
             username = request.form['username'].strip()
@@ -304,20 +305,20 @@ def register():
             surname = request.form['surname']
             email = request.form['email']
 
-            users = load_users()  # переконайся, що ця функція повертає список
+            users = load_users()
 
             # Перевірка логіну
             if any(u.get('username') == username for u in users):
                 error = 'Такий користувач вже існує.'
                 return render_template('register.html', error=error)
 
-            # Синхронна генерація аватару (можеш зробити async пізніше)
+            # ✔ Створюємо аватар
             avatar_path = generate_avatar(username)
 
-            # Створюємо токен підтвердження
+            # ✔ Створюємо токен підтвердження
             token = secrets.token_hex(24)
 
-            # Додаємо нового юзера (з avatar)
+            # ✔ Додаємо юзера
             users.append({
                 'username': username,
                 'password': password,
@@ -331,22 +332,17 @@ def register():
                 'verification_token': token
             })
 
-            save_users(users)  # тут може впасти — перевір консоль
+            save_users(users)
 
-            # Відправка листа (тимчасово закоментуй, якщо підозрюєш SMTP)
-            # send_verification_email(email, username, token)
+            # ✔ Відправка листа
+            send_verification_email(email, username, token)
 
             return render_template("verify_info.html", email=email)
 
         except Exception as e:
-            # Лог в консоль і передача помилки в шаблон
-            tb = traceback.format_exc()
-            app.logger.error("Register error:\n" + tb)
-            error = f"Помилка при реєстрації: {str(e)}"
-            # Під час розробки можна показати traceback (не для продакшну)
-            return render_template('register.html', error=error, debug_trace=tb)
+            return render_template('register.html', error=f"Помилка при реєстрації: {e}")
 
-    return render_template('register.html', error=error)
+    return render_template('register.html')
 
 
 

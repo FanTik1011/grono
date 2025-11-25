@@ -1,60 +1,4 @@
-body {
-    background: #f9f9f9;
-    font-family: "Segoe UI", sans-serif;
-    margin: 0;
-    padding: 0;
-  }
 
-  .glass-navbar {
-    position: sticky;
-    top: 0;
-    z-index: 1030;
-    background: rgba(255, 255, 255, 0.8);
-    backdrop-filter: blur(10px);
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
-  }
-
-  .navbar-brand {
-    color: #212121 !important;
-    font-weight: 600;
-    font-size: 1.1rem;
-  }
-
-  .nav-link {
-    color: #212121 !important;
-    font-weight: 500;
-    transition: color 0.3s ease;
-  }
-
-  .nav-link:hover {
-    color: #007bff !important;
-    text-shadow: 0 0 2px rgba(0, 123, 255, 0.3);
-  }
-
-  .navbar-toggler {
-    border: none;
-    padding: 10px;
-    font-size: 1.5rem;
-  }
-
-  h1.page-title {
-    text-align: center;
-    margin: 40px 0 20px;
-    font-weight: 600;
-    color: #343a40;
-  }
-
-  .news-item {
-    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-    border-radius: 16px;
-    overflow: hidden;
-    background: white;
-    transition: transform 0.2s;
-  }
-
-  .news-item:hover {
-    transform: scale(1.02);
-  }
 
   .card-img-top,
   .carousel-item img {
@@ -86,9 +30,7 @@ body {
   }
 
   @media (max-width: 768px) {
-    .navbar-brand {
-      font-size: 1rem;
-    }
+    
 
     .card-img-top,
     .carousel-item img {
@@ -99,13 +41,7 @@ body {
       width: 100%;
     }
 
-    .navbar-nav {
-      text-align: center;
-      background: rgba(255,255,255,0.95);
-      padding: 10px;
-      border-radius: 10px;
-      margin-top: 10px;
-    }
+   
   }
 
   @media (min-width: 768px) and (max-width: 992px) {

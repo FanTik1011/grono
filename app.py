@@ -244,9 +244,6 @@ def logout():
 
 
 def generate_avatar(username):
-    import random
-    from PIL import Image, ImageDraw, ImageFont
-
     size = 256
 
     colors = [
@@ -257,39 +254,30 @@ def generate_avatar(username):
     bg = random.choice(colors)
     letter = username[0].upper()
 
-    # Створюємо папку
-    save_dir = os.path.join(app.root_path, "static", "avatars")
-    os.makedirs(save_dir, exist_ok=True)
+    # шлях ЗБЕРІГАЄМО БЕЗ "static/"
+    save_path = f"avatars/{username}.png"
+    full_path = os.path.join(app.root_path, "static", save_path)
 
-    save_path = os.path.join("static", "avatars", f"{username}.png")
-    full_path = os.path.join(app.root_path, save_path)
+    os.makedirs(os.path.dirname(full_path), exist_ok=True)
 
-    # Створення картинки
     img = Image.new("RGB", (size, size), bg)
     draw = ImageDraw.Draw(img)
 
-    # ✔ Стабільний шрифт (Pillow включає його)
     try:
-        font = ImageFont.truetype("DejaVuSans-Bold.ttf", 150)
+        font = ImageFont.truetype("arial.ttf", 150)
     except:
         font = ImageFont.load_default()
 
-    # ✔ Точний розмір тексту
     bbox = draw.textbbox((0, 0), letter, font=font)
     w = bbox[2] - bbox[0]
     h = bbox[3] - bbox[1]
 
-    # Малюємо текст
-    draw.text(
-        ((size - w) / 2, (size - h) / 2),
-        letter,
-        fill="white",
-        font=font
-    )
+    draw.text(((size - w) / 2, (size - h) / 2),
+              letter, fill="white", font=font)
 
     img.save(full_path)
-
     return save_path
+
 
 
 

@@ -1,48 +1,166 @@
+<!-- Improved responsive, modern, clean version of your HTML (frontend only, backend untouched) -->
 <!DOCTYPE html>
 <html lang="uk">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-  <!-- Google verification -->
+  <!-- ✔ Google verification -->
   <meta name="google-site-verification" content="p6NukcOwJ9nLBdLusoEcawvOJT6rreyjqsXEoPyp1zI" />
   <meta name="google-site-verification" content="Tgb5EG3Z3x1Nj0gPsn9vA8VJPIST0-b2NCa60Z2gU2Q" />
 
-  <!-- SEO -->
-  <title>Шкільне самоврядування "Гроно" – Ліцей "Гроно"</title>
-  <meta name="description" content="Офіційний сайт шкільного самоврядування Ліцею 'Гроно'. Новини, події, фотозмагання, команда, ініціативи та життя учнів.">
-  <meta name="keywords" content="ліцей Гроно, самоврядування Гроно, школа, учнівське самоврядування, новини школи, ЛМР, Гроно Львів">
+  <title>Самоврядування Ліцею "Гроно"</title>
+  <meta name="description" content="Офіційний сайт самоврядування Ліцею 'Гроно'. Новини, команда, конкурси та життя учнів." />
+  <meta property="og:image" content="/static/img/preview.png" />
 
-  <!-- OpenGraph -->
-  <meta property="og:title" content="Самоврядування Ліцею 'Гроно'">
-  <meta property="og:description" content="Новини, події, ініціативи та життя Ліцею 'Гроно'.">
-  <meta property="og:type" content="website">
-  <meta property="og:url" content="https://grono.world/">
-  <meta property="og:image" content="/static/img/preview.png">
-  <meta name="robots" content="index, follow">
-
-  <link rel="icon" href="{{ url_for('static', filename='favicon.ico') }}" type="image/x-icon">
-  <link rel="icon" type="image/png" href="{{ url_for('static', filename='img/favicon.png') }}">
-
+  <!-- ❌ Removed old favicon line; now only modern version kept -->
+  <link rel="icon" href="{{ url_for('static', filename='favicon.ico') }}" />
 
   <!-- CSS -->
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"/>
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css"/>
-  <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}"/>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css" />
+  
 
   <style>
+    /* ========================= */
+    /* GLOBAL CLEAN STYLE        */
+    /* ========================= */
+    body {
+      font-family: "Inter", sans-serif;
+      background: linear-gradient(180deg, #f0f4ff, #ffffff);
+      overflow-x: hidden;
+    }
+
+    /* ========================= */
+    /* NAVBAR — NEW MODERN LOOK */
+    /* ========================= */
+    .navbar {
+      backdrop-filter: blur(14px);
+      background: rgba(255, 255, 255, 0.65) !important;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.4);
+      transition: 0.3s ease;
+    }
+    .navbar.scrolled {
+      background: rgba(255, 255, 255, 0.88) !important;
+      box-shadow: 0 3px 20px rgba(0,0,0,0.1);
+    }
+    .navbar-brand {
+      font-weight: 800;
+      font-size: 1.35rem;
+      line-height: 1.2;
+    }
+    .nav-link {
+      font-weight: 600;
+      margin-left: 10px;
+      border-radius: 10px;
+      padding: 8px 14px !important;
+      transition: 0.25s;
+    }
+    .nav-link:hover {
+      background: rgba(0, 110, 255, 0.12);
+      color: #0048ff !important;
+    }
+
+    /* MOBILE NAV TWEAKS */
+    @media (max-width: 992px) {
+      .nav-link { margin-left: 0; }
+      .navbar-nav { gap: 4px; }
+    }
+
+    /* ========================= */
+    /* HERO SECTION IMPROVED     */
+    /* ========================= */
+    .hero {
+      padding: 150px 0 120px;
+      text-align: center;
+      background: linear-gradient(135deg, #0047b3, #001e4d);
+      color: white;
+    }
+    .hero h1 {
+      font-size: 2.8rem;
+      font-weight: 800;
+    }
+    .hero p {
+      font-size: 1.25rem;
+      opacity: 0.9;
+    }
+    .btn-hero {
+      padding: 14px 26px;
+      background: #ffd500;
+      font-size: 1.2rem;
+      border-radius: 16px;
+      font-weight: 700;
+      transition: 0.3s;
+    }
+    .btn-hero:hover {
+      background: #ffae00;
+      transform: translateY(-3px);
+    }
+
+    /* Responsive hero text */
     @media (max-width: 576px) {
-      .hero h1 { font-size: 1.8rem; }
-      .hero p { font-size: 1rem; }
+      .hero h1 { font-size: 2rem; }
+      .hero p { font-size: 1.05rem; }
       .btn-hero { width: 100%; }
     }
+
+    /* ========================= */
+    /* CONTEST BLOCK POLISH      */
+    /* ========================= */
+    .contest-highlight-section {
+      background: radial-gradient(circle at top, #003b8a, #001e47 70%);
+      padding: 80px 0;
+      text-align: center;
+    }
+    .contest-highlight-card {
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      padding: 50px;
+      border-radius: 28px;
+      backdrop-filter: blur(14px);
+      color: #fff;
+      transition: 0.35s;
+    }
+    .contest-highlight-card:hover {
+      transform: translateY(-6px);
+    }
+
+    /* ========================= */
+    /* NEWS LIST                 */
+    /* ========================= */
+    .section-title {
+      font-weight: 800;
+      font-size: 2rem;
+      margin-bottom: 25px;
+    }
+
+    /* ========================= */
+    /* FOOTER                    */
+    /* ========================= */
+    .footer {
+      background: #001b3a;
+      color: #fff;
+    }
+
+    /* Scroll to top */
+    #scroll-to-top {
+      position: fixed;
+      bottom: 30px;
+      right: 30px;
+      font-size: 2.7rem;
+      cursor: pointer;
+      opacity: 0;
+      transition: 0.3s;
+      color: #005eff;
+    }
+    #scroll-to-top:hover { color: #00339e; }
   </style>
 </head>
 
 <body>
 
-  <!-- Прелоадер -->
+  <!-- PRELOADER -->
   <div id="preloader">
     <div class="glass-loader">
       <div class="pulse"></div>
@@ -50,20 +168,22 @@
     </div>
   </div>
 
-  <!-- Навбар -->
-  <nav class="navbar navbar-expand-lg glass-navbar fixed-top">
+
+  <!-- ===================== -->
+  <!-- NEW NAVIGATION BAR    -->
+  <!-- ===================== -->
+  <nav class="navbar navbar-expand-lg fixed-top">
     <div class="container">
-      <a class="navbar-brand fw-bold" href="{{ url_for('index') }}">
+      <a class="navbar-brand" href="{{ url_for('index') }}">
         Самоврядування<br>Ліцею "Гроно"
       </a>
 
-      <button class="navbar-toggler custom-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
         <span class="navbar-toggler-icon"></span>
       </button>
 
       <div class="collapse navbar-collapse" id="navbarNav">
-        <ul class="navbar-nav ms-auto">
-
+        <ul class="navbar-nav ms-auto align-items-lg-center">
           <li class="nav-item"><a class="nav-link" href="{{ url_for('competition') }}">Фотозмагання</a></li>
           <li class="nav-item"><a class="nav-link" href="{{ url_for('news') }}">Новини</a></li>
           <li class="nav-item"><a class="nav-link" href="{{ url_for('team') }}">Наша команда</a></li>
@@ -75,15 +195,15 @@
             <li class="nav-item"><a class="nav-link" href="{{ url_for('login') }}">Увійти</a></li>
             <li class="nav-item"><a class="nav-link" href="{{ url_for('register') }}">Реєстрація</a></li>
           {% endif %}
-
         </ul>
       </div>
     </div>
   </nav>
 
-  <!-- Герой -->
-  <header class="hero">
-    <div class="container" data-aos="fade-up">
+
+  <!-- HERO -->
+  <header class="hero" data-aos="fade-up">
+    <div class="container">
       <h1>Вітаємо на сайті самоврядування!</h1>
       <p>Новини, конкурси, команда та життя нашого ліцею.</p>
       <a href="{{ url_for('competition') }}" class="btn btn-hero mt-3 shadow">📸 Переглянути правила фотозмагання</a>
@@ -91,85 +211,23 @@
   </header>
 
 
-  <!-- 📸 ФОТОЗМАГАННЯ — ТЕПЕР ПЕРШІ -->
-<section class="contest-highlight-section py-5">
-  <div class="container">
-
-    <div class="contest-highlight-card" data-aos="fade-up">
-
-      <h2 class="contest-highlight-title">📸 Фотозмагання</h2>
-
-      <p class="contest-highlight-text">
-        Візьми участь у яскравому фотоконкурсі!  
-        Усього <strong>50 гривень</strong> за участь.  
-        <strong>40% — виграшний фонд</strong> 💰  
-        <strong>60% — на ЗСУ</strong> 🇺🇦
-      </p>
-
-      <a href="{{ url_for('photo_contest') }}" class="contest-highlight-btn">
-        <i class="bi bi-camera-fill me-2"></i> Переглянути всі фото
-      </a>
-
+  <!-- CONTEST -->
+  <section class="contest-highlight-section">
+    <div class="container">
+      <div class="contest-highlight-card" data-aos="fade-up">
+        <h2 class="contest-highlight-title">📸 Фотозмагання</h2>
+        <p class="contest-highlight-text">
+          Участь — <strong>50 грн</strong><br>
+          <strong>40% — виграшний фонд</strong><br>
+          <strong>60% — ЗСУ</strong>
+        </p>
+        <a href="{{ url_for('photo_contest') }}" class="contest-highlight-btn">Переглянути всі фото</a>
+      </div>
     </div>
-
-  </div>
-</section>
-
-<style>
-.contest-highlight-section {
-  background: radial-gradient(circle at top, #003b8a, #001e47 70%);
-  padding-top: 80px;
-  padding-bottom: 90px;
-}
-
-.contest-highlight-card {
-  background: rgba(255, 255, 255, 0.08);
-  border: 2px solid rgba(255, 255, 255, 0.12);
-  border-radius: 28px;
-  padding: 45px;
-  text-align: center;
-  color: #fff;
-  backdrop-filter: blur(14px);
-  box-shadow: 0 8px 40px rgba(0, 0, 0, 0.55);
-  transition: 0.35s ease;
-}
-.contest-highlight-card:hover {
-  transform: translateY(-6px);
-}
-
-.contest-highlight-title {
-  font-size: 2.4rem;
-  font-weight: 800;
-  margin-bottom: 15px;
-}
-
-.contest-highlight-text {
-  font-size: 1.25rem;
-  margin-bottom: 35px;
-}
-
-.contest-highlight-btn {
-  display: inline-block;
-  padding: 14px 38px;
-  font-size: 1.3rem;
-  font-weight: 600;
-  border-radius: 18px;
-  text-decoration: none;
-  color: #fff;
-
-  background: linear-gradient(135deg, #00a2ff, #005eff);
-  border: 1px solid rgba(255, 255, 255, 0.3);
-  transition: 0.3s ease;
-}
-.contest-highlight-btn:hover {
-  background: linear-gradient(135deg, #ffd000, #ff8b00);
-  transform: translateY(-3px);
-}
-</style>
+  </section>
 
 
-
-  <!-- 📰 Новини -->
+  <!-- NEWS -->
   <section class="py-5">
     <div class="container">
       <h2 class="section-title" data-aos="fade-right">Останні новини</h2>
@@ -178,14 +236,12 @@
   </section>
 
 
-  <!-- Про нас -->
+  <!-- ABOUT -->
   <section class="py-5">
     <div class="container">
       <div class="glass-card" id="about-card" data-aos="zoom-in">
         <h1>Про самоврядування</h1>
-        <p class="mt-3">
-          Самоврядування Ліцею "Гроно" — команда активних учнів, які організовують заходи, турніри, конкурси та представляють інтереси школярів.
-        </p>
+        <p class="mt-3">Самоврядування Ліцею "Гроно" — команда активних учнів...</p>
 
         <h2 class="mt-4">Слідкуй за нами</h2>
         <div class="text-center social-icons my-3">
@@ -197,39 +253,41 @@
     </div>
   </section>
 
-  <!-- Footer -->
-  <footer class="footer py-4">
-    <div class="container text-center">
-      <p class="mb-1">&copy; 2025 Ліцей "Гроно". Всі права захищені.</p>
-      <p class="mb-0">Зараз: <span id="live-time"></span></p>
-    </div>
+
+  <!-- FOOTER -->
+  <footer class="footer py-4 text-center">
+    <p>&copy; 2025 Ліцей "Гроно"</p>
+    <p>Зараз: <span id="live-time"></span></p>
   </footer>
 
-  <!-- Кнопка наверх -->
-  <div class="scroll-to-top" id="scroll-to-top">
-    <i class="bi bi-arrow-up-circle"></i>
-  </div>
 
-  <!-- Scripts -->
+  <!-- SCROLL TO TOP -->
+  <div id="scroll-to-top"><i class="bi bi-arrow-up-circle"></i></div>
+
+
+  <!-- SCRIPTS -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
-
   <script src="{{ url_for('static', filename='js/news.js') }}"></script>
 
   <script>
+    // Animate on scroll
     AOS.init();
 
+    // Live clock
     setInterval(() => {
-      const now = new Date();
-      document.getElementById("live-time").textContent = now.toLocaleTimeString("uk-UA");
+      document.getElementById("live-time").textContent = new Date().toLocaleTimeString("uk-UA");
     }, 1000);
 
+    // Scroll-to-top
     const scrollBtn = document.getElementById("scroll-to-top");
-    scrollBtn.addEventListener("click", () => window.scrollTo({ top: 0, behavior: "smooth" }));
     window.addEventListener("scroll", () => {
       scrollBtn.style.opacity = window.scrollY > 300 ? 1 : 0;
+      document.querySelector(".navbar").classList.toggle("scrolled", window.scrollY > 20);
     });
+    scrollBtn.addEventListener("click", () => window.scrollTo({ top: 0, behavior: "smooth" }));
 
+    // Preloader fade-out
     window.addEventListener("load", () => {
       const preloader = document.getElementById("preloader");
       setTimeout(() => preloader.classList.add("fade-out"), 200);

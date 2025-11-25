@@ -22,140 +22,149 @@
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css" />
   <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}" />
 
-  <style>
-    /* ========================= */
-    /* GLOBAL CLEAN STYLE        */
-    /* ========================= */
-    body {
-      font-family: "Inter", sans-serif;
-      background: linear-gradient(180deg, #f0f4ff, #ffffff);
-      overflow-x: hidden;
-    }
+  
+<style>
+  /* Beautiful modern CSS for the Grono student council website */
 
-    /* ========================= */
-    /* NAVBAR — NEW MODERN LOOK */
-    /* ========================= */
-    .navbar {
-      backdrop-filter: blur(14px);
-      background: rgba(255, 255, 255, 0.65) !important;
-      border-bottom: 1px solid rgba(255, 255, 255, 0.4);
-      transition: 0.3s ease;
-    }
-    .navbar.scrolled {
-      background: rgba(255, 255, 255, 0.88) !important;
-      box-shadow: 0 3px 20px rgba(0,0,0,0.1);
-    }
-    .navbar-brand {
-      font-weight: 800;
-      font-size: 1.35rem;
-      line-height: 1.2;
-    }
-    .nav-link {
-      font-weight: 600;
-      margin-left: 10px;
-      border-radius: 10px;
-      padding: 8px 14px !important;
-      transition: 0.25s;
-    }
-    .nav-link:hover {
-      background: rgba(0, 110, 255, 0.12);
-      color: #0048ff !important;
-    }
+/* Global */
+body {
+  background: linear-gradient(135deg, #fdfbff, #eef7ff);
+  font-family: 'Segoe UI', sans-serif;
+  padding-top: 80px;
+}
 
-    /* MOBILE NAV TWEAKS */
-    @media (max-width: 992px) {
-      .nav-link { margin-left: 0; }
-      .navbar-nav { gap: 4px; }
-    }
+/* Navbar */
+.navbar {
+  backdrop-filter: blur(12px);
+  background: rgba(255, 255, 255, 0.8);
+  box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+  transition: 0.3s;
+}
+.navbar.scrolled {
+  background: rgba(255, 255, 255, 0.95);
+  box-shadow: 0 6px 25px rgba(0,0,0,0.08);
+}
+.navbar-brand {
+  font-weight: 700;
+  font-size: 1.2rem;
+  letter-spacing: 0.5px;
+}
+.nav-link {
+  font-size: 1rem;
+  padding: 10px 15px;
+  transition: 0.2s;
+}
+.nav-link:hover {
+  color: #0d6efd;
+  transform: translateY(-2px);
+}
 
-    /* ========================= */
-    /* HERO SECTION IMPROVED     */
-    /* ========================= */
-    .hero {
-      padding: 150px 0 120px;
-      text-align: center;
-      background: linear-gradient(135deg, #0047b3, #001e4d);
-      color: white;
-    }
-    .hero h1 {
-      font-size: 2.8rem;
-      font-weight: 800;
-    }
-    .hero p {
-      font-size: 1.25rem;
-      opacity: 0.9;
-    }
-    .btn-hero {
-      padding: 14px 26px;
-      background: #ffd500;
-      font-size: 1.2rem;
-      border-radius: 16px;
-      font-weight: 700;
-      transition: 0.3s;
-    }
-    .btn-hero:hover {
-      background: #ffae00;
-      transform: translateY(-3px);
-    }
+/* Hero */
+.hero {
+  text-align: center;
+  padding: 130px 20px;
+  background: url('/static/img/hero.jpg') center/cover no-repeat;
+  color: white;
+  text-shadow: 0 3px 15px rgba(0,0,0,0.5);
+}
+.btn-hero {
+  background: #0d6efd;
+  color: white;
+  padding: 12px 28px;
+  border-radius: 12px;
+  font-size: 1.1rem;
+}
 
-    /* Responsive hero text */
-    @media (max-width: 576px) {
-      .hero h1 { font-size: 2rem; }
-      .hero p { font-size: 1.05rem; }
-      .btn-hero { width: 100%; }
-    }
+/* Contest card */
+.contest-highlight-card {
+  padding: 30px;
+  border-radius: 18px;
+  background: rgba(255,255,255,0.7);
+  backdrop-filter: blur(12px);
+  box-shadow: 0 8px 30px rgba(0,0,0,0.08);
+  text-align: center;
+}
+.contest-highlight-btn {
+  margin-top: 15px;
+  display: inline-block;
+  padding: 12px 24px;
+  border-radius: 12px;
+  background: #0d6efd;
+  color: white;
+}
 
-    /* ========================= */
-    /* CONTEST BLOCK POLISH      */
-    /* ========================= */
-    .contest-highlight-section {
-      background: radial-gradient(circle at top, #003b8a, #001e47 70%);
-      padding: 80px 0;
-      text-align: center;
-    }
-    .contest-highlight-card {
-      background: rgba(255, 255, 255, 0.06);
-      border: 1px solid rgba(255, 255, 255, 0.2);
-      padding: 50px;
-      border-radius: 28px;
-      backdrop-filter: blur(14px);
-      color: #fff;
-      transition: 0.35s;
-    }
-    .contest-highlight-card:hover {
-      transform: translateY(-6px);
-    }
+/* News */
+.section-title {
+  font-size: 2rem;
+  font-weight: 700;
+  margin-bottom: 20px;
+}
 
-    /* ========================= */
-    /* NEWS LIST                 */
-    /* ========================= */
-    .section-title {
-      font-weight: 800;
-      font-size: 2rem;
-      margin-bottom: 25px;
-    }
+/* About card */
+.glass-card {
+  padding: 40px;
+  background: rgba(255,255,255,0.75);
+  border-radius: 20px;
+  backdrop-filter: blur(16px);
+  box-shadow: 0 8px 25px rgba(0,0,0,0.06);
+}
+.social-icons a {
+  font-size: 1.8rem;
+  margin: 0 10px;
+  transition: 0.2s;
+}
+.social-icons a:hover {
+  opacity: 0.7;
+}
 
-    /* ========================= */
-    /* FOOTER                    */
-    /* ========================= */
-    .footer {
-      background: #001b3a;
-      color: #fff;
-    }
+/* Footer */
+.footer {
+  background: rgba(0,0,0,0.03);
+  backdrop-filter: blur(8px);
+  margin-top: 40px;
+  border-top: 1px solid rgba(0,0,0,0.1);
+}
 
-    /* Scroll to top */
-    #scroll-to-top {
-      position: fixed;
-      bottom: 30px;
-      right: 30px;
-      font-size: 2.7rem;
-      cursor: pointer;
-      opacity: 0;
-      transition: 0.3s;
-      color: #005eff;
-    }
-    #scroll-to-top:hover { color: #00339e; }
-  </style>
+/* Scroll to top */
+#scroll-to-top {
+  position: fixed;
+  right: 20px;
+  bottom: 20px;
+  font-size: 2.4rem;
+  cursor: pointer;
+  opacity: 0;
+  transition: 0.3s;
+}
+
+/* Preloader */
+#preloader {
+  position: fixed;
+  inset: 0;
+  background: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: 0.5s;
+  z-index: 9999;
+}
+#preloader.fade-out {
+  opacity: 0;
+  pointer-events: none;
+}
+.pulse {
+  width: 40px;
+  height: 40px;
+  background: #0d6efd;
+  border-radius: 50%;
+  animation: pulse 1.2s infinite ease-in-out;
+}
+@keyframes pulse {
+  0% { transform: scale(0.8); opacity: 0.7; }
+  50% { transform: scale(1.2); opacity: 1; }
+  100% { transform: scale(0.8); opacity: 0.7; }
+}
+</style>
+   
 </head>
 
 <body>

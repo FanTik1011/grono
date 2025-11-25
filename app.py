@@ -18,6 +18,7 @@ import random
 
 
 
+
 app = Flask(__name__)
 app.secret_key = 'секретний_ключ'
 
@@ -258,17 +259,20 @@ def register():
             error = 'Такий користувач вже існує.'
             return render_template('register.html', error=error)
 
+        # 🔥 Генерація аватара
+        avatar_path = generate_avatar(username)
+
         # Створюємо токен підтвердження
         token = secrets.token_hex(24)
-             # 🔥 Генеруємо аватар
-        avatar_path = generate_avatar(username[0], username)
-        # Додаємо нового юзера
+
+        # Додаємо юзера
         users.append({
             'username': username,
             'password': password,
             'name': name,
             'surname': surname,
             'email': email,
+            'avatar': avatar_path,
             'is_admin': False,
             'competition_participant': False,
             'email_verified': False,
@@ -283,45 +287,38 @@ def register():
         return render_template("verify_info.html", email=email)
 
     return render_template('register.html', error=error)
-    from PIL import Image, ImageDraw, ImageFont
-import random
-import os
 
-def generate_avatar(text, save_path):
-    # Розмір аватара
+
+def generate_avatar(username):
+    from PIL import Image, ImageDraw, ImageFont
+    import random
+    import os
+
     size = 256
 
-    # Випадковий колір кола
     colors = [
         "#ff6b6b", "#feca57", "#48dbfb", "#1dd1a1",
         "#5f27cd", "#54a0ff", "#ff9ff3", "#f368e0"
     ]
     bg_color = random.choice(colors)
 
-    # Створюємо зображення
+    save_path = f"static/avatars/{username}.png"
+    os.makedirs("static/avatars", exist_ok=True)
+
     img = Image.new("RGB", (size, size), bg_color)
     draw = ImageDraw.Draw(img)
 
-    # Текст — перша буква
-    letter = text[0].upper()
+    letter = username[0].upper()
 
-    # Шрифт (вбудований)
     try:
         font = ImageFont.truetype("arial.ttf", 150)
     except:
         font = ImageFont.load_default()
 
-    # Розрахунок позиції тексту
     w, h = draw.textsize(letter, font=font)
     position = ((size - w) / 2, (size - h) / 2 - 20)
 
-    # Текст (білий)
     draw.text(position, letter, fill="white", font=font)
-
-    # Створюємо директорію
-    os.makedirs(os.path.dirname(save_path), exist_ok=True)
-
-    # Зберігаємо файл
     img.save(save_path)
 
     return save_path

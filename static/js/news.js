@@ -1,32 +1,44 @@
 document.addEventListener("DOMContentLoaded", () => {
   fetch("/api/news")
     .then(res => res.json())
-    .then(data => renderNews(data));
+    .then(data => renderNews(data))
+    .catch(err => console.error("Помилка завантаження новин:", err));
 });
 
 function renderNews(news) {
   const container = document.getElementById("news-container");
+  if (!container) {
+    console.error("❌ #news-container не знайдено!");
+    return;
+  }
+
   container.innerHTML = "";
 
-  // Сортуємо за датою або id (якщо нема ISO-дат)
-  const sorted = news.sort((a, b) => b.id - a.id); // або за датою, якщо вона ISO
+  const sorted = news
+    .filter(n => n) // без null
+    .sort((a, b) => (b.id || 0) - (a.id || 0));
 
-  // Беремо тільки 3 останніх
   const latestNews = sorted.slice(0, 3);
 
   latestNews.forEach(item => {
     const col = document.createElement("div");
-    col.className = "col-md-6 col-lg-4";
+    col.className = "col-md-6 col-lg-4 mb-4";
+
+    const img = item.images?.[0] || "/static/images/default.jpg";
 
     col.innerHTML = `
-      <div class="card h-100 glass-card" data-aos="fade-up">
-        <img src="${item.images[0] || '/static/images/default.jpg'}" class="card-img-top" alt="${item.title}">
+      <div class="card h-100 shadow-lg border-0 rounded-4 overflow-hidden glass-card" data-aos="fade-up">
+        <img src="${img}" class="card-img-top" alt="${item.title || 'Новина'}">
+
         <div class="card-body">
-          <h5 class="card-title">${item.title}</h5>
-          <p class="card-text">${item.content}</p>
+          <h5 class="card-title fw-bold">${item.title || "Без назви"}</h5>
+          <p class="card-text text-dark opacity-75">
+              ${item.content || ""}
+          </p>
         </div>
-        <div class="card-footer text-muted">
-          ${item.date}
+
+        <div class="card-footer bg-transparent text-muted small">
+          ${item.date || ""}
         </div>
       </div>
     `;

@@ -244,26 +244,46 @@ def logout():
 
 
 def generate_avatar(username):
-    # повертає шлях у форматі "static/avatars/username.png"
     size = 256
-    colors = ["#ff6b6b","#feca57","#48dbfb","#1dd1a1","#5f27cd","#54a0ff","#ff9ff3","#f368e0"]
-    bg = random.choice(colors)
 
-    os.makedirs(os.path.join(app.root_path, "static", "avatars"), exist_ok=True)
-    save_path = os.path.join("static", "avatars", f"{username}.png")  # зберігаємо відносний шлях у JSON
+    colors = [
+        "#ff6b6b", "#feca57", "#48dbfb", "#1dd1a1",
+        "#5f27cd", "#54a0ff", "#ff9ff3", "#f368e0"
+    ]
+
+    bg = random.choice(colors)
+    letter = username[0].upper()
+
+    # шлях збереження
+    save_dir = os.path.join(app.root_path, "static", "avatars")
+    os.makedirs(save_dir, exist_ok=True)
+
+    save_path = os.path.join("static", "avatars", f"{username}.png")
+    full_path = os.path.join(app.root_path, save_path)
 
     img = Image.new("RGB", (size, size), bg)
     draw = ImageDraw.Draw(img)
-    letter = username[0].upper() if username else "U"
 
     try:
         font = ImageFont.truetype("arial.ttf", 150)
-    except Exception:
+    except:
         font = ImageFont.load_default()
 
-    w, h = draw.textsize(letter, font=font)
-    draw.text(((size-w)/2, (size-h)/2 - 10), letter, fill="white", font=font)
-    img.save(os.path.join(app.root_path, save_path))  # зберегти з root_path
+    # ✔ Новий спосіб визначення розміру тексту (Pillow 10+)
+    bbox = draw.textbbox((0, 0), letter, font=font)
+    w = bbox[2] - bbox[0]
+    h = bbox[3] - bbox[1]
+
+    draw.text(
+        ((size - w) / 2, (size - h) / 2),
+        letter,
+        fill="white",
+        font=font
+    )
+
+    img.save(full_path)
+    return save_path
+
     return save_path
 
 @app.route('/register', methods=['GET', 'POST'])

@@ -87,7 +87,8 @@
       <!-- АВАТАР -->
       <div class="avatar-wrapper">
         <img id="avatar-preview"
-             src="{{ user.avatar if user.avatar else '/static/img/default-avatar.png' }}">
+                        src="{{ user.avatar if user.avatar else '/static/img/default-avatar.png' }}">
+
 
         <label class="edit-avatar-btn">
           <input type="file" name="avatar" id="avatar-input" accept="image/*" hidden>

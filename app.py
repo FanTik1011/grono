@@ -103,17 +103,17 @@ def profile():
         user['name'] = request.form['name']
         user['surname'] = request.form['surname']
 
-        # Завантаження аватарки
         file = request.files.get('avatar')
         if file and file.filename != "":
             filename = secure_filename(file.filename)
-            avatar_path = os.path.join('static', 'avatars', filename)
+            folder = os.path.join(app.root_path, 'static', 'avatars')
+            os.makedirs(folder, exist_ok=True)
 
-            # Створимо папку якщо нема
-            os.makedirs(os.path.join('static', 'avatars'), exist_ok=True)
-
+            avatar_path = os.path.join(folder, filename)
             file.save(avatar_path)
+
             user['avatar'] = '/static/avatars/' + filename
+
 
         save_users(users)
 

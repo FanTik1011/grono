@@ -90,6 +90,7 @@ def news():
     return render_template('news.html', news=load_news(), is_admin=is_admin())
 
 @app.route('/profile', methods=['GET', 'POST'])
+@app.route('/profile', methods=['GET', 'POST'])
 def profile():
     if 'username' not in session:
         return redirect(url_for('login'))
@@ -99,27 +100,33 @@ def profile():
 
     if request.method == 'POST':
 
-        # Змінюємо ім’я
+        # Оновлення імені
         user['name'] = request.form['name']
         user['surname'] = request.form['surname']
 
+        # Отримуємо файл
         file = request.files.get('avatar')
+
         if file and file.filename:
             filename = secure_filename(file.filename)
-            folder = os.path.join(app.root_path, 'static', 'avatars')
-            os.makedirs(folder, exist_ok=True)
 
-            avatar_path = os.path.join(folder, filename)
+            # Повний шлях до папки avatars
+            avatar_folder = os.path.join(app.root_path, 'static', 'avatars')
+            os.makedirs(avatar_folder, exist_ok=True)
+
+            # Повний шлях до файлу
+            avatar_path = os.path.join(avatar_folder, filename)
+
+            # Зберігаємо файл
             file.save(avatar_path)
 
-            # Записуємо шлях для url_for
-            user['avatar'] = 'avatars/' + filename
-
-
+            # Шлях для JSON (БЕЗ /static/ !!!)
+            user['avatar'] = f"avatars/{filename}"
 
         save_users(users)
 
     return render_template("profile.html", user=user)
+
 
 
 

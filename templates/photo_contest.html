@@ -361,19 +361,24 @@
                 {% endif %}
 
                                 <!-- Аватар + ім'я -->
-                                        {% if user.avatar %}
-                        <img src="{{ url_for('static', filename=user.avatar) }}" class="avatar-photo">
-                    {% else %}
-                        <div class="user-avatar">{{ user.full_name[0] }}</div>
-                    {% endif %}
+           <!-- Аватар + ім'я -->
+            <div class="d-flex align-items-center mt-3">
 
-
-                    <div class="ms-3">
-                        <h5 class="fw-bold mb-0">{{ p.full_name }}</h5>
-                        <small class="text-secondary">@{{ p.username }}</small>
+                {% if user.avatar %}
+                    <img src="{{ url_for('static', filename=user.avatar) }}" 
+                        class="avatar-photo" alt="avatar">
+                {% else %}
+                    <div class="user-avatar">
+                        {{ user.full_name[0] }}
                     </div>
+                {% endif %}
 
+                <div class="ms-3">
+                    <h5 class="fw-bold mb-0">{{ user.full_name }}</h5>
+                    <small class="text-secondary">@{{ user.username }}</small>
                 </div>
+
+            </div>
 
 
 

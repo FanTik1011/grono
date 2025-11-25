@@ -281,44 +281,37 @@ def register():
         return render_template("verify_info.html", email=email)
 
     return render_template('register.html', error=error)
-def generate_avatar(letter, username):
-    # робимо букву великою
-    letter = letter.upper()
+def generate_avatar(initial, username):
+    # Параметри аватарки
+    size = (100, 100)
+    bg_colors = ["#FFB6C1", "#ADD8E6", "#90EE90", "#FFA07A", "#20B2AA", "#9370DB"]
+    bg_color = random.choice(bg_colors)
+    text_color = "white"
+    font_size = 55
 
-    # кольори (рандомно)
-    colors = [
-        "#F44336", "#E91E63", "#9C27B0", "#673AB7",
-        "#3F51B5", "#2196F3", "#03A9F4", "#00BCD4",
-        "#009688", "#4CAF50", "#8BC34A", "#FFC107",
-        "#FF9800", "#FF5722"
-    ]
-    bg_color = random.choice(colors)
-
-    # створюємо зображення 512x512
-    img = Image.new("RGB", (512, 512), bg_color)
+    # Створення зображення
+    img = Image.new('RGB', size, color=bg_color)
     draw = ImageDraw.Draw(img)
 
-    # шрифт
-    try:
-        font = ImageFont.truetype("arial.ttf", 250)
-    except:
-        font = ImageFont.load_default()
+    # Завантаження шрифту
+    font_path = os.path.join(app.root_path, 'static', 'fonts', 'arial.ttf')
+    font = ImageFont.truetype(font_path, font_size)
 
-    w, h = draw.textsize(letter, font=font)
+    # Розрахунок позиції тексту
+    text_width, text_height = draw.textsize(initial, font=font)
+    position = ((size[0] - text_width) / 2, (size[1] - text_height) / 2 - 5)
 
-    # центр тексту
-    position = ((512 - w) / 2, (512 - h) / 2 - 40)
+    # Додавання тексту
+    draw.text(position, initial.upper(), fill=text_color, font=font)
 
-    draw.text(position, letter, fill="white", font=font)
+    # Збереження аватарки
+    avatar_folder = os.path.join(app.root_path, 'static', 'avatars')
+    os.makedirs(avatar_folder, exist_ok=True)
+    avatar_filename = f"{username}_avatar.png"
+    avatar_path = os.path.join(avatar_folder, avatar_filename)
+    img.save(avatar_path)
 
-    # шлях
-    filename = f"{username}_avatar.png"
-    path = os.path.join("static", "avatars", filename)
-
-    os.makedirs("static/avatars", exist_ok=True)
-    img.save(path)
-
-    return f"static/avatars/{filename}"
+    return f"avatars/{avatar_filename}"
 
 
 

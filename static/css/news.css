@@ -15,13 +15,13 @@ body {
   }
 
   .navbar-brand {
-    color: #212121 !important;
+    color: white !important;
     font-weight: 600;
     font-size: 1.1rem;
   }
 
   .nav-link {
-    color: #212121 !important;
+    color: white !important;
     font-weight: 500;
     transition: color 0.3s ease;
   }
